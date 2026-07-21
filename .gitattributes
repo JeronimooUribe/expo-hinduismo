@@ -1,0 +1,11 @@
+# Binarios: git NUNCA debe tocarles los saltos de linea (los corrompe en Windows).
+*.pdf   binary
+*.docx  binary
+*.jpg   binary
+*.png   binary
+# Texto: normalizado, pero servido tal cual.
+*.html  text eol=lf
+*.md    text eol=lf
+*.py    text eol=lf
+*.js    text eol=lf
+*.json  text eol=lf
