@@ -1,0 +1,1142 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Hinduismo — 4.000 años en 12 escenas</title>
+<meta name="description" content="Exposición sobre el hinduismo: orígenes, creencias, derechos humanos y justicia social, con fuentes verificables.">
+<style>
+/* ============================================================
+   EXPO HINDUISMO — 11-10, INEM José Félix de Restrepo
+   Deck oscuro, pensado para proyectarse en un salón.
+   Regla que manda sobre todo: se tiene que ENTENDER desde
+   la última fila. Poco texto, letra grande, una idea por pantalla.
+   ============================================================ */
+
+:root{
+  --tinta:#0a0705;
+  --tinta-2:#150e0a;
+  --hueso:#f6efe6;
+  --hueso-suave:#d6cabb;
+  --tenue:#9c8f7f;
+  --azafran:#f0a247;
+  --azafran-claro:#fbcb85;
+  --bermellon:#e05540;
+  --verde:#6fa583;
+  --linea:rgba(246,239,230,.16);
+
+  --serif:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,"Times New Roman",serif;
+  --sans:"Segoe UI Variable Display","Segoe UI",ui-sans-serif,system-ui,"Noto Sans",sans-serif;
+  --mono:"Cascadia Mono",Consolas,"SF Mono",ui-monospace,monospace;
+
+  --sal:cubic-bezier(.16,1,.3,1);
+  --gap:clamp(20px,3.6vw,58px);
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+
+body{
+  background:var(--tinta);
+  color:var(--hueso);
+  font-family:var(--sans);
+  line-height:1.5;
+  overflow-x:hidden;
+  width:100%;max-width:100%;
+  -webkit-font-smoothing:antialiased;
+}
+
+.grano{
+  position:fixed;inset:0;pointer-events:none;z-index:60;opacity:.05;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='1'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ---------- estructura ---------- */
+#deck{
+  height:100dvh;overflow-y:auto;overflow-x:hidden;
+  scroll-snap-type:y mandatory;scroll-behavior:smooth;scrollbar-width:none;
+}
+#deck::-webkit-scrollbar{display:none}
+
+.escena{
+  position:relative;min-height:100dvh;
+  scroll-snap-align:start;scroll-snap-stop:always;
+  display:grid;align-content:center;
+  padding:clamp(48px,6vh,80px) var(--gap) clamp(78px,10vh,112px);
+  overflow:hidden;isolation:isolate;
+  content-visibility:auto;contain-intrinsic-size:100dvh;
+}
+.escena.on{content-visibility:visible}
+.lienzo{width:min(1360px,100%);margin-inline:auto;position:relative;z-index:2}
+
+/* ---------- tipografía: TODO más grande que antes ---------- */
+.num{
+  font-family:var(--mono);font-size:clamp(.72rem,.95vw,.88rem);
+  letter-spacing:.28em;color:var(--azafran);text-transform:uppercase;
+}
+h1{
+  font-family:var(--serif);font-weight:400;
+  font-size:clamp(3rem,8.4vw,7.4rem);line-height:.95;letter-spacing:-.025em;
+}
+h2{
+  font-family:var(--serif);font-weight:400;
+  font-size:clamp(2.3rem,5.6vw,4.6rem);line-height:1.02;letter-spacing:-.022em;
+  text-wrap:balance;
+}
+/* la frase que resume la diapositiva: es lo que el público lee primero */
+.idea{
+  font-size:clamp(1.25rem,2.35vw,2.05rem);
+  line-height:1.32;color:var(--hueso);max-width:34ch;text-wrap:balance;
+}
+.idea b{color:var(--azafran-claro);font-weight:400}
+
+/* bloque de punto: una etiqueta grande + una frase corta */
+.punto{display:grid;gap:5px}
+.punto .marca{
+  font-family:var(--mono);font-size:clamp(.82rem,1.15vw,1.02rem);
+  letter-spacing:.14em;text-transform:uppercase;color:var(--azafran);
+}
+.punto p, .punto .txt{
+  font-size:clamp(1.02rem,1.55vw,1.42rem);line-height:1.42;
+  color:var(--hueso);max-width:40ch;
+}
+.punto .txt b, .punto p b{color:var(--azafran-claro);font-weight:600}
+
+.pie{
+  font-family:var(--mono);font-size:clamp(.68rem,.88vw,.8rem);
+  letter-spacing:.03em;color:var(--tenue);margin-top:8px;line-height:1.45;
+}
+strong{color:var(--azafran-claro);font-weight:600}
+em{color:var(--azafran-claro);font-style:italic}
+
+/* ---------- fuente al pie de cada escena ---------- */
+.fuente{
+  position:absolute;left:var(--gap);right:var(--gap);bottom:clamp(22px,3.4vh,36px);
+  z-index:5;font-family:var(--mono);
+  font-size:clamp(.66rem,.85vw,.79rem);line-height:1.5;color:var(--tenue);
+  border-top:1px solid var(--linea);padding-top:10px;
+  display:flex;gap:9px;align-items:flex-start;
+}
+.fuente b{color:var(--azafran);font-weight:400;flex:0 0 auto;letter-spacing:.16em}
+.fuente span{overflow-wrap:anywhere}
+
+/* ---------- chrome ---------- */
+#barra{
+  position:fixed;top:0;left:0;height:3px;width:0%;
+  background:linear-gradient(90deg,var(--bermellon),var(--azafran),var(--azafran-claro));
+  z-index:50;transition:width .5s var(--sal);
+}
+#rail{
+  position:fixed;right:clamp(10px,1.4vw,20px);top:50%;transform:translateY(-50%);
+  z-index:50;display:flex;flex-direction:column;gap:9px;
+}
+#rail button{
+  width:9px;height:9px;border-radius:50%;border:0;cursor:pointer;padding:0;
+  background:rgba(246,239,230,.24);transition:all .45s var(--sal);
+}
+#rail button[aria-current="true"]{background:var(--azafran);height:24px;border-radius:5px}
+#rail button:focus-visible{outline:2px solid var(--azafran-claro);outline-offset:3px}
+
+#pista{
+  position:fixed;bottom:clamp(10px,1.6vh,18px);left:50%;transform:translateX(-50%);
+  z-index:50;font-family:var(--mono);font-size:.68rem;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--tenue);
+  display:flex;align-items:center;gap:9px;transition:opacity .6s;
+}
+#pista .flecha{display:inline-block;animation:rebote 2.4s var(--sal) infinite}
+@keyframes rebote{0%,100%{transform:translateY(0);opacity:.5}50%{transform:translateY(5px);opacity:1}}
+#pista.oculto{opacity:0;pointer-events:none}
+
+/* ---------- visuales ---------- */
+.fondo{position:absolute;inset:0;z-index:0;background-size:cover;background-position:center}
+.velo{position:absolute;inset:0;z-index:1}
+.velo-izq{background:linear-gradient(100deg,var(--tinta) 30%,rgba(10,7,5,.88) 55%,rgba(10,7,5,.36) 100%)}
+.velo-centro{background:radial-gradient(ellipse 92% 78% at 50% 46%,rgba(10,7,5,.55) 0%,rgba(10,7,5,.94) 74%)}
+.velo-abajo{background:linear-gradient(to top,var(--tinta) 10%,rgba(10,7,5,.78) 50%,rgba(10,7,5,.45) 100%)}
+
+.marco{overflow:hidden;border-radius:4px;background:var(--tinta-2);position:relative}
+.marco img{display:block;width:100%;height:100%;object-fit:cover;
+  transition:transform 1.1s var(--sal)}
+.marco:hover img{transform:scale(1.04)}
+
+.cifra{
+  font-family:var(--serif);font-size:clamp(2.8rem,6vw,5rem);
+  line-height:1;color:var(--azafran-claro);font-variant-numeric:tabular-nums;
+}
+.rotulo{font-size:clamp(.92rem,1.25vw,1.12rem);color:var(--hueso-suave);max-width:22ch;margin-top:4px}
+
+.tarjeta{
+  border:1px solid var(--linea);border-radius:5px;
+  padding:clamp(16px,1.9vw,26px);
+  background:linear-gradient(158deg,rgba(246,239,230,.055),rgba(246,239,230,.014));
+}
+
+.ojo{
+  border-left:3px solid var(--bermellon);padding:10px 0 10px 16px;
+  font-size:clamp(.95rem,1.35vw,1.2rem);line-height:1.42;color:var(--hueso-suave);max-width:46ch;
+}
+.ojo b{color:var(--bermellon);font-weight:650}
+
+/* ============================================================
+   ANIMACIONES — una distinta por escena
+   ============================================================ */
+#e1 .fondo{transform:scale(1.16);transition:transform 14s linear}
+#e1.on .fondo{transform:scale(1)}
+#e1 .cortina{position:absolute;inset:0;z-index:3;background:var(--tinta);transform-origin:top;transform:scaleY(1)}
+#e1.on .cortina{transition:transform 1.15s var(--sal);transform:scaleY(0)}
+#e1 .titulo>span{display:block;overflow:hidden}
+#e1 .titulo>span>i{display:block;font-style:normal;transform:translateY(102%);transition:transform 1s var(--sal)}
+#e1.on .titulo>span>i{transform:translateY(0)}
+#e1.on .titulo>span:nth-child(1)>i{transition-delay:.5s}
+#e1.on .titulo>span:nth-child(2)>i{transition-delay:.62s}
+#e1 .nombre{opacity:0;transform:translateX(-16px);transition:all .7s var(--sal)}
+#e1.on .nombre{opacity:1;transform:none}
+#e1.on .nombre:nth-child(1){transition-delay:1.02s}
+#e1.on .nombre:nth-child(2){transition-delay:1.11s}
+#e1.on .nombre:nth-child(3){transition-delay:1.20s}
+#e1.on .nombre:nth-child(4){transition-delay:1.29s}
+#e1.on .nombre:nth-child(5){transition-delay:1.38s}
+#e1.on .nombre:nth-child(6){transition-delay:1.47s}
+
+#e2 .mapa-caja{clip-path:circle(0% at 50% 50%);transition:clip-path 1.5s var(--sal) .35s}
+#e2.on .mapa-caja{clip-path:circle(78% at 50% 50%)}
+#e2 .dato{opacity:0;transform:translateY(22px);transition:all .8s var(--sal)}
+#e2.on .dato{opacity:1;transform:none}
+#e2.on .dato:nth-child(1){transition-delay:.1s}
+#e2.on .dato:nth-child(2){transition-delay:.26s}
+#e2.on .dato:nth-child(3){transition-delay:.42s}
+#e2 .punto{opacity:0;transform:translateY(18px);transition:all .8s var(--sal)}
+#e2.on .punto{opacity:1;transform:none}
+#e2.on .punto:nth-child(1){transition-delay:.55s}
+#e2.on .punto:nth-child(2){transition-delay:.68s}
+#e2.on .punto:nth-child(3){transition-delay:.81s}
+
+#e3 .via{stroke-dasharray:1000;stroke-dashoffset:1000;transition:stroke-dashoffset 2.1s var(--sal) .2s}
+#e3.on .via{stroke-dashoffset:0}
+#e3 .hito{opacity:0;transform:translateY(16px);transition:all .7s var(--sal)}
+#e3.on .hito{opacity:1;transform:none}
+#e3.on .hito:nth-child(1){transition-delay:.55s}
+#e3.on .hito:nth-child(2){transition-delay:1.0s}
+#e3.on .hito:nth-child(3){transition-delay:1.45s}
+#e3 .sello{transform:perspective(1000px) rotateY(-72deg) scale(.9);opacity:0;
+  transition:transform 1.5s var(--sal) .3s,opacity 1s ease .3s}
+#e3.on .sello{transform:perspective(1000px) rotateY(0) scale(1);opacity:1}
+
+#e4 .om{font-family:var(--serif);opacity:0;transform:scale(.72);
+  transition:opacity 1.2s ease .1s,transform 1.4s var(--sal) .1s}
+#e4.on .om{opacity:1;transform:scale(1);animation:respira 6s ease-in-out 1.6s infinite}
+@keyframes respira{0%,100%{transform:scale(1);opacity:.9}50%{transform:scale(1.06);opacity:1}}
+#e4 .concepto{opacity:0;transform:translateX(26px);transition:all .75s var(--sal)}
+#e4.on .concepto{opacity:1;transform:none}
+#e4.on .concepto:nth-child(1){transition-delay:.4s}
+#e4.on .concepto:nth-child(2){transition-delay:.58s}
+#e4.on .concepto:nth-child(3){transition-delay:.76s}
+#e4.on .concepto:nth-child(4){transition-delay:.94s}
+#e4.on .concepto:nth-child(5){transition-delay:1.12s}
+
+#e5 .libro{perspective:1800px}
+#e5 .hoja{transform-style:preserve-3d;opacity:0}
+#e5 .hoja-i{transform-origin:right center;transform:rotateY(88deg);
+  transition:transform 1.35s var(--sal) .18s,opacity .7s ease .18s}
+#e5 .hoja-d{transform-origin:left center;transform:rotateY(-88deg);
+  transition:transform 1.35s var(--sal) .3s,opacity .7s ease .3s}
+#e5.on .hoja{opacity:1;transform:rotateY(0)}
+#e5 .cita{opacity:0;transform:translateY(18px);transition:all .9s var(--sal) 1.1s}
+#e5.on .cita{opacity:1;transform:none}
+
+#e6 .mosaico{perspective:1500px}
+#e6 .celda{opacity:0;transform:translateY(52px) rotateX(-16deg) scale(.94);
+  transition:opacity .85s ease,transform 1.05s var(--sal)}
+#e6.on .celda{opacity:1;transform:none}
+#e6.on .celda:nth-child(1){transition-delay:.05s}
+#e6.on .celda:nth-child(2){transition-delay:.18s}
+#e6.on .celda:nth-child(3){transition-delay:.31s}
+#e6.on .celda:nth-child(4){transition-delay:.44s}
+
+#e7 .piso{opacity:0;transform:translateY(30px) scaleX(.86);transform-origin:center;
+  transition:opacity .6s ease,transform .85s var(--sal)}
+#e7.on .piso{opacity:1;transform:none}
+#e7.on .piso:nth-child(5){transition-delay:.15s}
+#e7.on .piso:nth-child(4){transition-delay:.34s}
+#e7.on .piso:nth-child(3){transition-delay:.53s}
+#e7.on .piso:nth-child(2){transition-delay:.72s}
+#e7.on .piso:nth-child(1){transition-delay:.91s}
+#e7 .elem{opacity:0;transform:translateX(28px);transition:all .8s var(--sal)}
+#e7.on .elem{opacity:1;transform:none}
+#e7.on .elem:nth-child(1){transition-delay:.45s}
+#e7.on .elem:nth-child(2){transition-delay:.62s}
+#e7.on .elem:nth-child(3){transition-delay:.79s}
+#e7.on .elem:nth-child(4){transition-delay:.96s}
+
+#e8 .col-i{clip-path:polygon(0 0,0 0,0 100%,0 100%);transition:clip-path 1.25s var(--sal) .15s}
+#e8.on .col-i{clip-path:polygon(0 0,100% 0,100% 100%,0 100%)}
+#e8 .col-d{clip-path:polygon(100% 0,100% 0,100% 100%,100% 100%);transition:clip-path 1.25s var(--sal) .38s}
+#e8.on .col-d{clip-path:polygon(0 0,100% 0,100% 100%,0 100%)}
+#e8 .elem{opacity:0;transform:translateY(20px);transition:all .75s var(--sal)}
+#e8.on .elem{opacity:1;transform:none}
+#e8.on .elem:nth-child(1){transition-delay:.7s}
+#e8.on .elem:nth-child(2){transition-delay:.86s}
+#e8.on .elem:nth-child(3){transition-delay:1.02s}
+
+#e9 .hilo{transform:scaleX(0);transform-origin:left;transition:transform 2s var(--sal) .3s}
+#e9.on .hilo{transform:scaleX(1)}
+#e9 .eslabon{opacity:0;transform:scale(.72);transition:opacity .6s ease,transform .8s var(--sal)}
+#e9.on .eslabon{opacity:1;transform:none}
+#e9.on .eslabon:nth-child(1){transition-delay:.45s}
+#e9.on .eslabon:nth-child(2){transition-delay:1.0s}
+#e9.on .eslabon:nth-child(3){transition-delay:1.55s}
+#e9 .base{opacity:0;transform:translateY(22px);transition:all .8s var(--sal) 2s}
+#e9.on .base{opacity:1;transform:none}
+
+#e10 .barra i{display:block;height:100%;width:0;
+  background:linear-gradient(90deg,var(--bermellon),var(--azafran));
+  transition:width 1.6s var(--sal) .35s;border-radius:3px}
+#e10.on .barra i{width:var(--w)}
+#e10 .fila{opacity:0;transform:translateX(-26px);transition:all .8s var(--sal)}
+#e10.on .fila{opacity:1;transform:none}
+#e10.on .fila:nth-child(1){transition-delay:.1s}
+#e10.on .fila:nth-child(2){transition-delay:.28s}
+#e10 .honesto{opacity:0;transform:translateY(22px);transition:all .9s var(--sal) .95s}
+#e10.on .honesto{opacity:1;transform:none}
+
+#e11 .capa{transform:translateY(34px) scale(1.06);opacity:0;
+  transition:transform 1.5s var(--sal),opacity 1s ease}
+#e11.on .capa{transform:none;opacity:1}
+#e11 .capa-a{transition-delay:.05s}
+#e11 .capa-b{transition-delay:.28s}
+#e11 .capa-c{transition-delay:.51s}
+
+#e12 .luz{position:absolute;inset:0;z-index:1;
+  background:radial-gradient(circle 42vmax at 50% 40%,rgba(240,162,71,.2),transparent 66%);
+  opacity:0;transform:scale(.35);
+  transition:opacity 2.2s ease .2s,transform 2.6s var(--sal) .2s}
+#e12.on .luz{opacity:1;transform:scale(1)}
+#e12 .verso{opacity:0;transform:translateY(24px);transition:all 1s var(--sal)}
+#e12.on .verso{opacity:1;transform:none}
+#e12.on .verso:nth-child(1){transition-delay:.5s}
+#e12.on .verso:nth-child(2){transition-delay:.78s}
+#e12.on .verso:nth-child(3){transition-delay:1.06s}
+#e12.on .verso:nth-child(4){transition-delay:1.34s}
+#e12.on .verso:nth-child(5){transition-delay:1.62s}
+#e12 .remate{opacity:0;transform:translateY(16px);transition:all 1s var(--sal) 2.1s}
+#e12.on .remate{opacity:1;transform:none}
+
+#e13 .qr-caja{opacity:0;transform:scale(.82) rotate(-3deg);transition:all 1.1s var(--sal) .2s}
+#e13.on .qr-caja{opacity:1;transform:none}
+#e13 .escaner{position:absolute;left:0;right:0;height:3px;top:0;
+  background:linear-gradient(90deg,transparent,var(--azafran),transparent);opacity:0}
+#e13.on .escaner{animation:escanea 2.8s ease-in-out 1.1s infinite}
+@keyframes escanea{0%{top:2%;opacity:0}12%{opacity:.9}88%{opacity:.9}100%{top:98%;opacity:0}}
+#e13 .paso{opacity:0;transform:translateX(24px);transition:all .8s var(--sal)}
+#e13.on .paso{opacity:1;transform:none}
+#e13.on .paso:nth-child(1){transition-delay:.55s}
+#e13.on .paso:nth-child(2){transition-delay:.7s}
+#e13.on .paso:nth-child(3){transition-delay:.85s}
+
+#e14 .ref{opacity:0;transform:translateY(16px);transition:all .7s var(--sal)}
+#e14.on .ref{opacity:1;transform:none}
+#e14.on .ref:nth-child(1){transition-delay:.05s}
+#e14.on .ref:nth-child(2){transition-delay:.12s}
+#e14.on .ref:nth-child(3){transition-delay:.19s}
+#e14.on .ref:nth-child(4){transition-delay:.26s}
+#e14.on .ref:nth-child(5){transition-delay:.33s}
+#e14.on .ref:nth-child(6){transition-delay:.40s}
+#e14.on .ref:nth-child(7){transition-delay:.47s}
+#e14.on .ref:nth-child(8){transition-delay:.54s}
+#e14 .gracias{opacity:0;transform:scale(.9);transition:all 1.2s var(--sal) .7s}
+#e14.on .gracias{opacity:1;transform:none}
+
+/* ---------- layouts ---------- */
+.grid-2{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(26px,3.8vw,66px);align-items:center}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(18px,2.6vw,42px)}
+.pila{display:flex;flex-direction:column;gap:clamp(14px,2vh,26px)}
+.fila-h{display:flex;gap:clamp(16px,2.2vw,32px);align-items:center;flex-wrap:wrap}
+
+@media (max-width:900px){
+  .grid-2{grid-template-columns:1fr;gap:24px}
+  .grid-3{grid-template-columns:1fr;gap:16px}
+  .escena{padding-bottom:130px}
+  #rail{display:none}
+  .fuente{position:static;margin-top:26px}
+  .idea,.punto p,.punto .txt,.ojo{max-width:none}
+}
+
+/* ---------- QUIZ ---------- */
+#quizapp{display:none;min-height:100dvh;padding:26px 20px 44px}
+body.modo-quiz #deck,body.modo-quiz #rail,body.modo-quiz #pista,body.modo-quiz #barra{display:none}
+body.modo-quiz #quizapp{display:block}
+.qwrap{max-width:640px;margin-inline:auto}
+.qbarra{height:4px;background:rgba(246,239,230,.13);border-radius:2px;overflow:hidden;margin:18px 0 26px}
+.qbarra i{display:block;height:100%;background:var(--azafran);transition:width .5s var(--sal)}
+.qpregunta{font-family:var(--serif);font-size:clamp(1.35rem,5.6vw,1.78rem);line-height:1.24;margin-bottom:20px}
+.qops{display:flex;flex-direction:column;gap:10px}
+.qop{
+  display:flex;gap:12px;align-items:flex-start;width:100%;text-align:left;
+  min-height:54px;padding:15px 17px;cursor:pointer;
+  border:1px solid var(--linea);border-radius:7px;background:rgba(246,239,230,.035);
+  color:var(--hueso);font:inherit;font-size:1rem;line-height:1.45;
+  transition:transform .3s var(--sal),border-color .3s,background .3s;
+}
+.qop:hover:not(:disabled){transform:translateX(4px);border-color:rgba(240,162,71,.55)}
+.qop:focus-visible{outline:2px solid var(--azafran-claro);outline-offset:2px}
+.qop .letra{font-family:var(--mono);color:var(--azafran);flex:0 0 auto}
+.qop.bien{border-color:var(--verde);background:rgba(111,165,131,.22)}
+.qop.mal{border-color:var(--bermellon);background:rgba(224,85,64,.17)}
+.qexplica{
+  margin-top:16px;padding:15px 17px;border-left:3px solid var(--azafran);
+  background:rgba(240,162,71,.08);font-size:.95rem;color:var(--hueso-suave);line-height:1.5;
+}
+.qexplica b{color:var(--azafran-claro);font-weight:650}
+.qbtn{
+  margin-top:20px;width:100%;min-height:54px;border:0;border-radius:7px;cursor:pointer;
+  background:var(--azafran);color:#1a0f04;font:inherit;font-weight:700;font-size:1.02rem;
+  transition:transform .3s var(--sal),filter .3s;
+}
+.qbtn:hover{transform:translateY(-2px);filter:brightness(1.08)}
+.qbtn.ghost{background:transparent;color:var(--hueso);border:1px solid var(--linea);font-weight:500}
+.qpuntaje{font-family:var(--serif);font-size:clamp(3.6rem,18vw,5.6rem);line-height:1;color:var(--azafran-claro)}
+
+@media (prefers-reduced-motion:reduce){
+  html,#deck{scroll-behavior:auto}
+  *,*::before,*::after{
+    animation-duration:.001ms!important;animation-iteration-count:1!important;
+    transition-duration:.001ms!important;transition-delay:0ms!important;
+  }
+  #e1 .cortina{transform:scaleY(0)}
+  #e1 .titulo>span>i,#e1 .nombre,#e2 .dato,#e2 .punto,#e3 .hito,#e3 .sello,#e4 .concepto,#e4 .om,
+  #e5 .hoja,#e5 .cita,#e6 .celda,#e7 .piso,#e7 .elem,#e8 .elem,#e9 .eslabon,#e9 .base,
+  #e10 .fila,#e10 .honesto,#e11 .capa,#e12 .verso,#e12 .remate,#e13 .qr-caja,#e13 .paso,
+  #e14 .ref,#e14 .gracias{opacity:1!important;transform:none!important}
+  #e2 .mapa-caja,#e8 .col-i,#e8 .col-d{clip-path:none}
+  #e3 .via{stroke-dashoffset:0}
+  #e9 .hilo{transform:scaleX(1)}
+  #e10 .barra i{width:var(--w)}
+  #e12 .luz{opacity:1;transform:none}
+  #e13 .escaner{display:none}
+  #e1 .fondo{transform:scale(1)}
+}
+</style>
+</head>
+<body>
+<div class="grano" aria-hidden="true"></div>
+<div id="barra" aria-hidden="true"></div>
+<nav id="rail" aria-label="Ir a una diapositiva"></nav>
+<div id="pista"><span class="flecha">&#8595;</span><span>Flecha abajo para avanzar</span></div>
+
+<main id="deck">
+
+<!-- ═══════ 01 · PORTADA ═══════ -->
+<section class="escena" id="e1" data-titulo="Portada">
+  <div class="fondo" style="background-image:url('img/portada.jpg')"></div>
+  <div class="velo velo-izq"></div>
+  <div class="cortina" aria-hidden="true"></div>
+  <div class="lienzo">
+    <p class="num" style="margin-bottom:20px">I.E. INEM José Félix de Restrepo · 11-10 · Medellín · 21 de julio de 2026</p>
+    <h1 class="titulo">
+      <span><i>Hinduismo</i></span>
+      <span><i style="color:var(--azafran-claro);font-size:.42em;padding-top:.36em">4.000 años en 12 escenas</i></span>
+    </h1>
+    <p class="idea" style="margin-top:26px;max-width:44ch">
+      La religión viva más antigua del mundo, contada en orden:
+      desde el año 2600 antes de Cristo hasta lo que pasó el año pasado.
+    </p>
+    <ul style="list-style:none;margin-top:clamp(28px,4.4vh,48px);display:grid;
+               grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px 30px;max-width:860px">
+      <li class="nombre" style="font-size:clamp(1rem,1.4vw,1.24rem)">Santiago Bolívar</li>
+      <li class="nombre" style="font-size:clamp(1rem,1.4vw,1.24rem)">Samuel Villa</li>
+      <li class="nombre" style="font-size:clamp(1rem,1.4vw,1.24rem)">Jerónimo Uribe</li>
+      <li class="nombre" style="font-size:clamp(1rem,1.4vw,1.24rem)">Dulce María Gómez</li>
+      <li class="nombre" style="font-size:clamp(1rem,1.4vw,1.24rem)">Paulina Gómez</li>
+      <li class="nombre" style="font-size:clamp(1rem,1.4vw,1.24rem)">Isabel Madrigal</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══════ 02 · QUÉ ES ═══════ -->
+<section class="escena" id="e2" data-titulo="Qué es el hinduismo">
+  <div class="lienzo">
+    <p class="num">Escena 02</p>
+    <h2 style="margin:16px 0 20px">¿Qué es el hinduismo?</h2>
+    <p class="idea" style="margin-bottom:clamp(24px,3.6vh,42px);max-width:52ch">
+      No es una religión con un fundador y un libro, como el cristianismo o el islam.
+      Es <b>un conjunto enorme de tradiciones</b> que creció durante miles de años en India.
+    </p>
+
+    <div class="grid-2">
+      <div>
+        <div class="fila-h" style="gap:clamp(20px,3vw,44px);margin-bottom:clamp(22px,3vh,34px)">
+          <div class="dato"><p class="cifra">1.200</p><p class="rotulo">millones de hindúes en el mundo</p></div>
+          <div class="dato"><p class="cifra">4.&#170;</p><p class="rotulo">religión más grande del planeta</p></div>
+          <div class="dato"><p class="cifra">95&#37;</p><p class="rotulo">de ellos vive en India</p></div>
+        </div>
+        <div class="pila">
+          <div class="punto"><span class="marca">Nadie la fundó</span>
+            <p class="txt">No hay un profeta que la haya empezado. Se fue formando sola, poco a poco.</p></div>
+          <div class="punto"><span class="marca">Ni un libro, ni un jefe</span>
+            <p class="txt">No tiene una Biblia única ni un Papa que decida qué es lo correcto.</p></div>
+          <div class="punto"><span class="marca">El nombre viene de afuera</span>
+            <p class="txt">«Hindú» era como los de otros países llamaban a la gente que vivía al otro lado del <b>río Indo</b>. Ellos la llaman <em>sanatana dharma</em>.</p></div>
+        </div>
+      </div>
+      <div>
+        <div class="marco mapa-caja"><img src="img/mapa.jpg" alt="Mapa mundial con el porcentaje de población hindú por país" loading="lazy" decoding="async"></div>
+        <p class="pie">Países según su porcentaje de población hindú. En verde oscuro, India y Nepal.</p>
+      </div>
+    </div>
+  </div>
+  <div class="fuente"><b>FUENTE</b><span>Pew Research Center, «How the Global Religious Landscape Changed From 2010 to 2020», 2025 — pewresearch.org · Encyclopædia Britannica, «Hinduism» — britannica.com</span></div>
+</section>
+
+<!-- ═══════ 03 · RAÍCES ═══════ -->
+<section class="escena" id="e3" data-titulo="Cómo empezó">
+  <div class="fondo" style="background-image:url('img/mohenjodaro.jpg');opacity:.26"></div>
+  <div class="velo velo-abajo"></div>
+  <div class="lienzo">
+    <p class="num">Escena 03 · Hace 4.600 años</p>
+    <h2 style="margin:16px 0 20px">Cómo empezó todo</h2>
+    <p class="idea" style="margin-bottom:clamp(22px,3vh,36px);max-width:50ch">
+      Primero hubo ciudades. Después llegaron unos himnos que se aprendían <b>de memoria</b>.
+      De ahí sale todo lo demás.
+    </p>
+
+    <svg viewBox="0 0 1000 20" style="width:100%;height:20px;margin-bottom:22px" aria-hidden="true">
+      <line class="via" x1="4" y1="10" x2="996" y2="10" stroke="url(#g3)" stroke-width="2"/>
+      <defs><linearGradient id="g3"><stop offset="0" stop-color="#e05540"/><stop offset="1" stop-color="#fbcb85"/></linearGradient></defs>
+    </svg>
+
+    <div class="grid-3">
+      <div class="hito punto"><span class="marca" style="color:var(--bermellon)">2600 a.C.</span>
+        <p class="txt">Ciudades enormes junto al río Indo, con alcantarillado y baños públicos. Se llaman <b>Mohenjo-daro</b> y Harappa.</p></div>
+      <div class="hito punto"><span class="marca">1500 a.C.</span>
+        <p class="txt">Aparecen los <b>Vedas</b>: cuatro colecciones de himnos en sánscrito. Nadie los escribió durante siglos: se pasaban de boca en boca, memorizados.</p></div>
+      <div class="hito punto"><span class="marca" style="color:var(--azafran-claro)">1200 a.C.</span>
+        <p class="txt">La religión de esa época era <b>ofrecer sacrificios al fuego</b>. Todavía no existían los templos ni las estatuas de dioses.</p></div>
+    </div>
+
+    <div class="fila-h" style="margin-top:clamp(22px,3vh,36px);align-items:flex-start">
+      <div class="sello" style="flex:0 0 auto;width:min(150px,26vw)">
+        <div class="marco"><img src="img/sello.jpg" alt="Sello de barro del valle del Indo con una figura sentada rodeada de animales" loading="lazy" decoding="async"></div>
+      </div>
+      <p class="ojo" style="flex:1 1 300px"><b>Lo que no se sabe.</b> En ese sello hay una figura sentada que algunos creen que es el dios Shiva. <b>No está comprobado.</b> La escritura del Indo nunca se ha logrado descifrar, así que nadie puede leer qué decía.</p>
+    </div>
+  </div>
+  <div class="fuente"><b>FUENTE</b><span>Encyclopædia Britannica, «Indus civilization» y «Veda» — britannica.com</span></div>
+</section>
+
+<!-- ═══════ 04 · LAS 5 PALABRAS ═══════ -->
+<section class="escena" id="e4" data-titulo="Las cinco palabras">
+  <div class="lienzo grid-2">
+    <div>
+      <p class="num">Escena 04 · Hace 2.800 años</p>
+      <h2 style="margin:16px 0 20px">Cinco palabras<br>explican casi todo</h2>
+      <p class="idea" style="margin-bottom:22px">
+        Unos textos llamados <b>Upanishads</b> dejaron de preguntar «¿a quién le ofrezco?»
+        y empezaron a preguntar <b>«¿quién soy yo?»</b>. Ahí nace el vocabulario que el
+        hinduismo usa hasta hoy.
+      </p>
+      <div class="marco"><img src="img/upanishad.jpg" alt="Página de un manuscrito antiguo del Katha Upanishad en sánscrito" loading="lazy" decoding="async"></div>
+      <p class="pie">Manuscrito del Katha Upanishad, en escritura grantha.</p>
+      <div class="om" style="font-size:clamp(2.6rem,5vw,4rem);line-height:1;color:var(--azafran);
+                             margin-top:16px" aria-label="Símbolo Om">&#2384;</div>
+    </div>
+
+    <div class="pila" style="gap:clamp(11px,1.6vh,18px)">
+      <div class="concepto tarjeta punto"><span class="marca">Brahman</span>
+        <p class="txt">Lo que sostiene todo lo que existe. La realidad de fondo.</p></div>
+      <div class="concepto tarjeta punto"><span class="marca">Atman</span>
+        <p class="txt">Tu «yo» verdadero, el de adentro. No es tu cuerpo ni tu personalidad.</p></div>
+      <div class="concepto tarjeta punto"><span class="marca">Samsara</span>
+        <p class="txt">Naces, mueres y vuelves a nacer. Una y otra vez, sin parar.</p></div>
+      <div class="concepto tarjeta punto"><span class="marca">Karma</span>
+        <p class="txt">Todo lo que haces tiene consecuencias, y esas consecuencias deciden <b>cómo vuelves a nacer</b>.</p></div>
+      <div class="concepto tarjeta punto" style="border-color:rgba(240,162,71,.5)"><span class="marca">Moksha</span>
+        <p class="txt"><b>Salirse de esa rueda para siempre.</b> Esa es la meta final del hinduismo.</p></div>
+    </div>
+  </div>
+  <div class="fuente"><b>FUENTE</b><span>Encyclopædia Britannica: «Upanishad», «karma», «moksha», «samsara», «Brahman» — britannica.com</span></div>
+</section>
+
+<!-- ═══════ 05 · ÉPICAS ═══════ -->
+<section class="escena" id="e5" data-titulo="Las dos grandes historias">
+  <div class="lienzo">
+    <p class="num">Escena 05 · Entre el año 400 a.C. y el 400 d.C.</p>
+    <h2 style="margin:16px 0 18px">Dos historias gigantes</h2>
+    <p class="idea" style="margin-bottom:clamp(20px,2.8vh,34px);max-width:56ch">
+      Son como el «Señor de los Anillos» del hinduismo, pero además enseñan
+      <b>cómo hay que vivir</b>. De aquí sale la palabra <b>dharma</b>: lo correcto que
+      a cada quien le toca hacer.
+    </p>
+    <div class="libro grid-2" style="align-items:start">
+      <div class="hoja hoja-i">
+        <div class="marco" style="aspect-ratio:16/11"><img src="img/gita.jpg" alt="Pintura india de Krishna guiando el carro de guerra de Arjuna" loading="lazy" decoding="async"></div>
+        <div class="punto" style="margin-top:14px"><span class="marca">Mahabharata</span>
+          <p class="txt">Un guerrero, <b>Arjuna</b>, se paraliza antes de la batalla: al frente están sus propios primos. El dios <b>Krishna</b> le responde. Esa conversación es la <em>Bhagavad Gita</em>, el texto hindú más leído del mundo.</p></div>
+      </div>
+      <div class="hoja hoja-d">
+        <div class="marco" style="aspect-ratio:16/11"><img src="img/ramayana.jpg" alt="Miniatura india de la batalla de Lanka del Ramayana" loading="lazy" decoding="async"></div>
+        <div class="punto" style="margin-top:14px"><span class="marca">Ramayana</span>
+          <p class="txt">Al príncipe <b>Rama</b> lo destierran, le secuestran a su esposa <b>Sita</b> y él la rescata. Se cuenta como ejemplo de lealtad y de cumplir la palabra. Es la historia que se celebra cada año en la fiesta de Diwali.</p></div>
+      </div>
+    </div>
+    <p class="cita" style="margin-top:clamp(16px,2.2vh,26px);font-size:clamp(.95rem,1.3vw,1.15rem);color:var(--hueso-suave)">
+      Para dimensionarlo: el Mahabharata tiene unos 100.000 versos. Es <strong>diez veces</strong> la Ilíada y la Odisea juntas.
+    </p>
+  </div>
+  <div class="fuente"><b>FUENTE</b><span>Encyclopædia Britannica: «Mahabharata», «Ramayana», «Bhagavadgita» — britannica.com</span></div>
+</section>
+
+<!-- ═══════ 06 · PRÁCTICA ═══════ -->
+<section class="escena" id="e6" data-titulo="Cómo se vive hoy">
+  <div class="lienzo">
+    <p class="num">Escena 06 · Del año 300 d.C. hasta hoy</p>
+    <h2 style="margin:16px 0 18px">Cómo se ve en la calle</h2>
+    <p class="idea" style="margin-bottom:clamp(20px,2.8vh,34px);max-width:54ch">
+      Aquí aparecen los templos, las estatuas y las fiestas.
+      <b>Esta parte sigue igual hoy</b>: no es pasado, es este año.
+    </p>
+
+    <div class="mosaico grid-2" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:clamp(14px,1.8vw,26px)">
+      <figure class="celda">
+        <div class="marco" style="aspect-ratio:3/4"><img src="img/trimurti.jpg" alt="Escultura de tres rostros en las grutas de Elefanta, India" loading="lazy" decoding="async"></div>
+        <figcaption class="punto" style="margin-top:12px"><span class="marca">Tres dioses</span>
+          <p class="txt"><b>Brahma</b> crea, <b>Vishnu</b> cuida, <b>Shiva</b> destruye para que algo nuevo pueda empezar.</p></figcaption>
+      </figure>
+      <figure class="celda">
+        <div class="marco" style="aspect-ratio:3/4"><img src="img/aarti.jpg" alt="Ceremonia nocturna con lámparas de fuego a orillas del río Ganges" loading="lazy" decoding="async"></div>
+        <figcaption class="punto" style="margin-top:12px"><span class="marca">La práctica diaria</span>
+          <p class="txt">Se llama <b>puja</b>: ofrecer flores, luz y comida, en el templo o en la casa. En la foto, a orillas del río Ganges.</p></figcaption>
+      </figure>
+      <figure class="celda">
+        <div class="marco" style="aspect-ratio:3/4"><img src="img/holi.jpg" alt="Personas cubiertas de polvos de colores durante el festival Holi" loading="lazy" decoding="async"></div>
+        <figcaption class="punto" style="margin-top:12px"><span class="marca">Holi</span>
+          <p class="txt">La fiesta de los colores. Llega la primavera y por un día <b>nadie es más que nadie</b>.</p></figcaption>
+      </figure>
+      <figure class="celda">
+        <div class="marco" style="aspect-ratio:3/4"><img src="img/diwali.jpg" alt="Lámparas de aceite encendidas durante la fiesta de Diwali" loading="lazy" decoding="async"></div>
+        <figcaption class="punto" style="margin-top:12px"><span class="marca">Diwali</span>
+          <p class="txt">La fiesta de las luces: miles de lamparitas por el regreso de Rama. Es la más conocida fuera de India.</p></figcaption>
+      </figure>
+    </div>
+  </div>
+  <div class="fuente"><b>FUENTE</b><span>Encyclopædia Britannica: «Hinduism», «Trimurti», «puja», «Diwali», «Holi» — britannica.com</span></div>
+</section>
+
+<!-- ═══════ 07 · DDHH 1 ═══════ -->
+<section class="escena" id="e7" data-titulo="Derechos humanos 1: las castas">
+  <div class="lienzo">
+    <p class="num" style="color:var(--bermellon)">Escena 07 · Derechos humanos · 1 de 2</p>
+    <h2 style="margin:16px 0 18px">Las castas</h2>
+    <p class="idea" style="margin-bottom:clamp(20px,2.8vh,34px);max-width:54ch">
+      Naces dentro de un grupo social <b>y no te puedes cambiar nunca</b>.
+      Ese sistema choca de frente con los derechos humanos.
+    </p>
+
+    <div class="grid-2" style="align-items:start">
+      <div style="display:flex;flex-direction:column;gap:6px">
+        <div class="piso" style="background:rgba(240,162,71,.2);border:1px solid var(--linea);border-radius:4px;padding:13px 16px;width:46%;margin-inline:auto">
+          <b style="font-size:clamp(.95rem,1.25vw,1.1rem)">Brahmanes</b>
+          <span style="display:block;color:var(--hueso-suave);font-size:clamp(.85rem,1.05vw,.98rem)">sacerdotes y maestros</span></div>
+        <div class="piso" style="background:rgba(240,162,71,.15);border:1px solid var(--linea);border-radius:4px;padding:13px 16px;width:60%;margin-inline:auto">
+          <b style="font-size:clamp(.95rem,1.25vw,1.1rem)">Kshatriyas</b>
+          <span style="display:block;color:var(--hueso-suave);font-size:clamp(.85rem,1.05vw,.98rem)">reyes y guerreros</span></div>
+        <div class="piso" style="background:rgba(240,162,71,.11);border:1px solid var(--linea);border-radius:4px;padding:13px 16px;width:74%;margin-inline:auto">
+          <b style="font-size:clamp(.95rem,1.25vw,1.1rem)">Vaishyas</b>
+          <span style="display:block;color:var(--hueso-suave);font-size:clamp(.85rem,1.05vw,.98rem)">comerciantes y campesinos</span></div>
+        <div class="piso" style="background:rgba(240,162,71,.07);border:1px solid var(--linea);border-radius:4px;padding:13px 16px;width:88%;margin-inline:auto">
+          <b style="font-size:clamp(.95rem,1.25vw,1.1rem)">Shudras</b>
+          <span style="display:block;color:var(--hueso-suave);font-size:clamp(.85rem,1.05vw,.98rem)">los que sirven a los demás</span></div>
+        <div class="piso" style="background:rgba(224,85,64,.19);border:1px solid rgba(224,85,64,.55);border-radius:4px;padding:13px 16px;width:100%">
+          <b style="font-size:clamp(.95rem,1.25vw,1.1rem);color:var(--bermellon)">Y por fuera: los «intocables»</b>
+          <span style="display:block;color:var(--hueso-suave);font-size:clamp(.85rem,1.05vw,.98rem)">Hoy se llaman <b style="color:var(--azafran-claro)">dalits</b>. El sistema no los ponía abajo: los dejaba <b style="color:var(--azafran-claro)">afuera</b>.</span></div>
+      </div>
+
+      <div class="pila">
+        <div class="elem punto"><span class="marca" style="color:var(--bermellon)">El choque</span>
+          <p class="txt">Declaración Universal de Derechos Humanos, artículo 1: <b>«Todos los seres humanos nacen libres e iguales en dignidad y derechos.»</b> Un grupo heredado que no se puede cambiar contradice esa frase.</p></div>
+        <div class="elem punto"><span class="marca">La respuesta vino de adentro</span>
+          <p class="txt"><b>B. R. Ambedkar</b> nació dalit y llegó a dirigir la escritura de la Constitución de India.</p></div>
+        <div class="elem punto"><span class="marca">La ley que lo prohibió</span>
+          <p class="txt">Artículo 17 de esa Constitución: <b>queda abolida la intocabilidad</b> y practicarla es delito. Está en vigor desde el <b>26 de enero de 1950</b>.</p></div>
+        <div class="elem fila-h" style="gap:14px">
+          <div class="marco" style="flex:0 0 clamp(86px,11vw,120px)"><img src="img/ambedkar.jpg" alt="Retrato de B. R. Ambedkar" loading="lazy" decoding="async"></div>
+          <div class="marco" style="flex:0 0 clamp(86px,11vw,120px)"><img src="img/constitucion.jpg" alt="Preámbulo original de la Constitución de India" loading="lazy" decoding="async"></div>
+          <p class="pie" style="flex:1 1 160px;margin:0">Ambedkar, y el preámbulo original de la Constitución de India.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="fuente"><b>FUENTE</b><span>ONU, Declaración Universal de Derechos Humanos, art. 1 — un.org · Constitución de India, arts. 15 y 17 — constitutionofindia.net</span></div>
+</section>
+
+<!-- ═══════ 08 · DDHH 2 ═══════ -->
+<section class="escena" id="e8" data-titulo="Derechos humanos 2: libertad de religión">
+  <div class="lienzo">
+    <p class="num" style="color:var(--bermellon)">Escena 08 · Derechos humanos · 2 de 2</p>
+    <h2 style="margin:16px 0 18px">Libertad de creer</h2>
+    <p class="idea" style="margin-bottom:clamp(20px,2.8vh,34px);max-width:56ch">
+      El segundo choque con los derechos humanos: <b>poder creer lo que uno quiera,
+      y poder dejar de creerlo.</b>
+    </p>
+
+    <div class="grid-2" style="align-items:start">
+      <div class="col-i pila">
+        <div class="elem fila-h" style="align-items:flex-start;gap:16px">
+          <div class="marco" style="flex:0 0 clamp(92px,11vw,130px)"><img src="img/rammohanroy.jpg" alt="Retrato de Raja Ram Mohan Roy" loading="lazy" decoding="async"></div>
+          <div class="punto" style="flex:1 1 240px"><span class="marca">Una costumbre que se prohibió</span>
+            <p class="txt">Se llamaba <b>sati</b>: cuando un hombre moría, quemaban a su viuda en la misma hoguera. Un reformador hindú, <b>Ram Mohan Roy</b>, hizo campaña hasta que se prohibió por ley el <b>4 de diciembre de 1829</b>.</p></div>
+        </div>
+        <div class="elem punto"><span class="marca">Lo que dice la ley india hoy</span>
+          <p class="txt">Artículo 25 de la Constitución: <b>todas las personas tienen libertad de conciencia</b> y derecho a profesar, practicar y difundir su religión.</p></div>
+      </div>
+
+      <div class="col-d pila">
+        <div class="elem punto"><span class="marca" style="color:var(--bermellon)">Dónde no alcanza</span>
+          <p class="txt">La Declaración Universal, artículo 18, incluye algo más: <b>el derecho a cambiar de religión</b>. En India, varios estados han aprobado leyes que ponen trabas a convertirse a otra fe. La primera fue en 1967.</p></div>
+        <div class="elem fila-h" style="align-items:flex-start;gap:16px">
+          <div class="marco" style="flex:0 0 clamp(92px,11vw,130px)"><img src="img/vivekananda.jpg" alt="Swami Vivekananda fotografiado en Chicago en 1893" loading="lazy" decoding="async"></div>
+          <div class="punto" style="flex:1 1 240px"><span class="marca">1893 · Chicago</span>
+            <p class="txt"><b>Vivekananda</b> presentó el hinduismo al mundo en un congreso de religiones y pidió tolerancia: dijo estar orgulloso de una religión que enseñó al mundo <b>a aceptar a las demás</b>.</p></div>
+        </div>
+        <p class="elem ojo"><b>Importante.</b> Ni el sati ni las castas «son el hinduismo». Son costumbres históricas que otros hindúes combatieron y que hoy la ley castiga. Juzgar a 1.200 millones de personas por eso sería como juzgar a todo el cristianismo solo por la Inquisición.</p>
+      </div>
+    </div>
+  </div>
+  <div class="fuente"><b>FUENTE</b><span>Bengal Sati Regulation, 1829 · Constitución de India, art. 25 — constitutionofindia.net · ONU, DUDH art. 18 — un.org · USCIRF, leyes estatales anti-conversión — uscirf.gov · Discursos de Vivekananda 1893 — belurmath.org</span></div>
+</section>
+
+<!-- ═══════ 09 · JUSTICIA SOCIAL 1 ═══════ -->
+<section class="escena" id="e9" data-titulo="Justicia social 1: el aporte">
+  <div class="lienzo">
+    <p class="num" style="color:var(--verde)">Escena 09 · Justicia social · 1 de 2</p>
+    <h2 style="margin:16px 0 18px">Una idea que dio<br>la vuelta al mundo</h2>
+    <p class="idea" style="margin-bottom:clamp(26px,3.6vh,46px);max-width:56ch">
+      Una idea nacida en India terminó ayudando a <b>acabar con la segregación racial
+      en Estados Unidos.</b> Esta es la cadena, paso a paso.
+    </p>
+
+    <div style="position:relative;margin-bottom:clamp(22px,3vh,36px)">
+      <div class="hilo" style="position:absolute;left:0;right:0;top:9px;height:2px;
+           background:linear-gradient(90deg,var(--verde),var(--azafran),var(--hueso))"></div>
+      <div class="grid-3" style="position:relative">
+        <div class="eslabon punto">
+          <div style="width:18px;height:18px;border-radius:50%;background:var(--verde);margin:0 0 16px;border:3px solid var(--tinta)"></div>
+          <span class="marca" style="color:var(--verde)">Ahimsa</span>
+          <p class="txt">Una palabra antigua del hinduismo: <b>no hacerle daño a ningún ser vivo</b>.</p>
+        </div>
+        <div class="eslabon punto">
+          <div style="width:18px;height:18px;border-radius:50%;background:var(--azafran);margin:0 0 16px;border:3px solid var(--tinta)"></div>
+          <span class="marca">Gandhi · 1930</span>
+          <p class="txt">Gandhi la convierte en <b>una forma de pelear sin violencia</b>. Camina 385 km hasta el mar y recoge sal para romper una ley británica. Lo llamó <em>satyagraha</em>.</p>
+        </div>
+        <div class="eslabon punto">
+          <div style="width:18px;height:18px;border-radius:50%;background:var(--hueso);margin:0 0 16px;border:3px solid var(--tinta)"></div>
+          <span class="marca" style="color:var(--hueso)">Martin Luther King · 1959</span>
+          <p class="txt">Viaja a India <b>a aprender ese método</b> y lo usa contra la segregación racial. Al llegar dijo: «A otros países voy como turista; <b>a India vengo como peregrino</b>».</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="base fila-h" style="align-items:flex-start">
+      <div style="flex:0 0 clamp(140px,18vw,210px)">
+        <div class="marco"><img src="img/gandhi.jpg" alt="Gandhi en la playa de Dandi durante la Marcha de la Sal, 1930" loading="lazy" decoding="async"></div>
+        <p class="pie">Gandhi en Dandi, 5 de abril de 1930.</p>
+      </div>
+      <p class="ojo" style="flex:1 1 320px;border-left-color:var(--verde)">
+        <b>Ojo con esto.</b> No es que el hinduismo sea pacifista: dentro del Mahabharata hay
+        una guerra entera. Es que de esa tradición salió un principio que un hombre convirtió
+        en herramienta política, y funcionó al otro lado del mundo.</p>
+    </div>
+  </div>
+  <div class="fuente"><b>FUENTE</b><span>Britannica, «ahimsa» y «satyagraha» — britannica.com · Stanford King Institute, viaje de M. L. King a India en 1959 — kinginstitute.stanford.edu</span></div>
+</section>
+
+<!-- ═══════ 10 · JUSTICIA SOCIAL 2 ═══════ -->
+<section class="escena" id="e10" data-titulo="Justicia social 2: lo que falta">
+  <div class="fondo" style="background-image:url('img/protesta.jpg');opacity:.14"></div>
+  <div class="velo velo-centro"></div>
+  <div class="lienzo">
+    <p class="num" style="color:var(--bermellon)">Escena 10 · Justicia social · 2 de 2</p>
+    <h2 style="margin:16px 0 18px">Lo que todavía falta</h2>
+    <p class="idea" style="margin-bottom:clamp(24px,3.2vh,40px);max-width:58ch">
+      La ley prohibió la discriminación por casta en 1950.
+      <b>En la práctica sigue pasando</b>, y estos son los números del propio gobierno de India.
+    </p>
+
+    <div class="pila" style="max-width:980px;gap:clamp(18px,2.6vh,30px)">
+      <div class="fila">
+        <div class="fila-h" style="justify-content:space-between;align-items:flex-end;margin-bottom:10px">
+          <p class="txt" style="max-width:34ch;font-size:clamp(1rem,1.45vw,1.3rem)">Denuncias por delitos contra personas de castas bajas en India, en un solo año (2023)</p>
+          <b style="font-family:var(--serif);font-size:clamp(2.2rem,4.6vw,3.6rem);color:var(--azafran-claro);line-height:1">57.789</b>
+        </div>
+        <div class="barra" style="height:10px;background:rgba(246,239,230,.09);border-radius:5px;overflow:hidden"><i style="--w:100%"></i></div>
+      </div>
+      <div class="fila">
+        <div class="fila-h" style="justify-content:space-between;align-items:flex-end;margin-bottom:10px">
+          <p class="txt" style="max-width:34ch;font-size:clamp(1rem,1.45vw,1.3rem)">Casos represados en los juzgados esperando sentencia</p>
+          <b style="font-family:var(--serif);font-size:clamp(2.2rem,4.6vw,3.6rem);color:var(--azafran-claro);line-height:1">307.355</b>
+        </div>
+        <div class="barra" style="height:10px;background:rgba(246,239,230,.09);border-radius:5px;overflow:hidden"><i style="--w:88%"></i></div>
+      </div>
+    </div>
+
+    <div class="honesto grid-2" style="grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+         gap:clamp(14px,1.8vw,26px);margin-top:clamp(22px,3vh,36px)">
+      <div class="tarjeta punto"><span class="marca">Qué se está haciendo</span>
+        <p class="txt">India guarda <b>cupos reservados</b> en universidades, empleos públicos y en el Congreso para los grupos que fueron excluidos.</p></div>
+      <div class="tarjeta punto"><span class="marca">Un matiz necesario</span>
+        <p class="txt">La casta no es solo religión: también es estructura social. Hay dalits <b>cristianos y musulmanes</b>, y la discriminación también los alcanza.</p></div>
+      <div class="tarjeta punto"><span class="marca">La conclusión</span>
+        <p class="txt">Prohibir algo por ley no lo borra de la sociedad. <b>Entre el papel y la vida real todavía hay una distancia enorme.</b></p></div>
+    </div>
+  </div>
+  <div class="fuente"><b>FUENTE</b><span>National Crime Records Bureau de India, «Crime in India 2023», datos publicados por el Parlamento de India — sansad.in · Ministerio de Justicia Social de India — socialjustice.gov.in</span></div>
+</section>
+
+<!-- ═══════ 11 · HOY ═══════ -->
+<section class="escena" id="e11" data-titulo="Está pasando ahora">
+  <div class="lienzo">
+    <p class="num">Escena 11 · 2019 — 2026</p>
+    <h2 style="margin:16px 0 18px">Está pasando ahora</h2>
+    <p class="idea" style="margin-bottom:clamp(20px,2.8vh,34px);max-width:52ch">
+      Tres hechos de los últimos años que muestran <b>el peso que tiene hoy</b> esta religión.
+    </p>
+
+    <div class="grid-3" style="grid-template-columns:repeat(auto-fit,minmax(260px,1fr))">
+      <figure class="capa capa-a">
+        <div class="marco" style="aspect-ratio:4/3"><img src="img/kumbh2025.jpg" alt="Multitud inmensa de peregrinos en el Kumbh Mela de Prayagraj en 2025" loading="lazy" decoding="async"></div>
+        <figcaption class="punto" style="margin-top:14px"><span class="marca">2025</span>
+          <p class="txt"><b>660 millones de personas</b> fueron al Kumbh Mela, en India, durante 45 días. Es <b>la reunión humana más grande de la historia</b>. Van a bañarse en el río, porque creen que limpia.</p></figcaption>
+      </figure>
+      <figure class="capa capa-b">
+        <div class="marco" style="aspect-ratio:4/3"><img src="img/rammandir.jpg" alt="Templo de Ram en Ayodhya el día de su inauguración" loading="lazy" decoding="async"></div>
+        <figcaption class="punto" style="margin-top:14px"><span class="marca">2024</span>
+          <p class="txt">Se inauguró un gran templo a Rama en <b>Ayodhya</b>, en un terreno que hindúes y musulmanes se disputaron durante décadas. La Corte Suprema de India lo resolvió en 2019.</p></figcaption>
+      </figure>
+      <figure class="capa capa-c">
+        <div class="marco" style="aspect-ratio:4/3"><img src="img/yoga.jpg" alt="Celebración masiva del Día Internacional del Yoga en Nueva Delhi" loading="lazy" decoding="async"></div>
+        <figcaption class="punto" style="margin-top:14px"><span class="marca">2014</span>
+          <p class="txt">La <b>ONU</b> declaró el 21 de junio Día Internacional del Yoga. Una práctica que nació dentro del hinduismo hoy es una fecha mundial.</p></figcaption>
+      </figure>
+    </div>
+  </div>
+  <div class="fuente"><b>FUENTE</b><span>DD News, medio público de India — ddnews.gov.in · Britannica, «Ram Mandir, Ayodhya» — britannica.com · ONU, resolución 69/131 — un.org</span></div>
+</section>
+
+<!-- ═══════ 12 · CIERRE ═══════ -->
+<section class="escena" id="e12" data-titulo="Lo que creemos nosotros">
+  <div class="luz" aria-hidden="true"></div>
+  <div class="lienzo" style="max-width:1020px">
+    <p class="num" style="color:var(--bermellon)">Escena 12 · Aquí termina la exposición</p>
+    <h2 style="margin:16px 0 16px">Lo que creemos nosotros</h2>
+    <p class="idea" style="margin-bottom:clamp(20px,2.8vh,34px);max-width:58ch">
+      Todo lo anterior lo contamos con fuentes y con respeto, porque es lo que corresponde.
+      <b>Esta última parte es distinta: es nuestra convicción</b>, y estas son las razones.
+    </p>
+
+    <div class="pila" style="gap:clamp(13px,1.9vh,22px)">
+      <div class="verso">
+        <p style="font-family:var(--serif);font-size:clamp(1.1rem,2vw,1.55rem);line-height:1.3">
+          «Yo soy el camino, y la verdad, y la vida: nadie viene al Padre, sino por mí.»</p>
+        <p class="pie"><strong>Juan 14:6</strong> — Jesús no dice que <em>enseña</em> un camino: dice que Él <em>es</em> el camino.</p>
+      </div>
+      <div class="verso">
+        <p style="font-family:var(--serif);font-size:clamp(1.1rem,2vw,1.55rem);line-height:1.3">
+          «Porque hay un Dios, asimismo un mediador entre Dios y los hombres, Jesucristo hombre.»</p>
+        <p class="pie"><strong>1 Timoteo 2:5</strong> — Un solo intermediario entre el ser humano y Dios.</p>
+      </div>
+      <div class="verso">
+        <p style="font-family:var(--serif);font-size:clamp(1.1rem,2vw,1.55rem);line-height:1.3">
+          «Y en ningún otro hay salud; porque no hay otro nombre debajo del cielo, dado á los hombres, en que podamos ser salvos.»</p>
+        <p class="pie"><strong>Hechos 4:12</strong> — «Salud» aquí quiere decir salvación.</p>
+      </div>
+      <div class="verso">
+        <p style="font-family:var(--serif);font-size:clamp(1.1rem,2vw,1.55rem);line-height:1.3">
+          «Porque por gracia sois salvos por la fe; y esto no de vosotros, pues es don de Dios: no por obras, para que nadie se gloríe.»</p>
+        <p class="pie"><strong>Efesios 2:8-9</strong> — La diferencia con el karma: no se acumula con obras, se recibe como regalo.</p>
+      </div>
+      <div class="verso">
+        <p style="font-family:var(--serif);font-size:clamp(1.1rem,2vw,1.55rem);line-height:1.3">
+          «Y de la manera que está establecido á los hombres que mueran una vez, y después el juicio.»</p>
+        <p class="pie"><strong>Hebreos 9:27</strong> — Una sola vida, no una rueda de renacimientos.</p>
+      </div>
+    </div>
+
+    <p class="remate" style="margin-top:clamp(18px,2.6vh,30px);max-width:64ch;
+       font-size:clamp(.98rem,1.35vw,1.2rem);color:var(--hueso-suave)">
+      Lo decimos con el mismo respeto con el que expusimos: <strong>discutimos ideas, nunca personas.</strong>
+      Cada quien saca sus conclusiones. Estas son las nuestras.
+    </p>
+  </div>
+  <div class="fuente"><b>FUENTE</b><span>Biblia Reina-Valera Antigua (1909), versión en dominio público — biblegateway.com</span></div>
+</section>
+
+<!-- ═══════ QUIZ ═══════ -->
+<section class="escena" id="e13" data-titulo="Quiz">
+  <div class="lienzo grid-2">
+    <div>
+      <p class="num">Ahora te toca a ti</p>
+      <h2 style="margin:16px 0 18px">Quiz · 5 preguntas</h2>
+      <p class="idea" style="margin-bottom:26px;max-width:40ch">
+        Escanea el código con la cámara del celular. <b>Están difíciles a propósito.</b>
+      </p>
+      <ol style="list-style:none;display:flex;flex-direction:column;gap:14px">
+        <li class="paso punto"><span class="marca">Paso 1</span><p class="txt">Abre la cámara del celular y apúntala al código.</p></li>
+        <li class="paso punto"><span class="marca">Paso 2</span><p class="txt">Toca el enlace que aparece. Se abre solo, no hay que instalar nada.</p></li>
+        <li class="paso punto"><span class="marca">Paso 3</span><p class="txt">Al final te muestra tu puntaje y te explica cada respuesta.</p></li>
+      </ol>
+    </div>
+    <div style="justify-self:center;text-align:center">
+      <div class="qr-caja" style="position:relative;background:var(--hueso);padding:clamp(16px,2.2vw,26px);
+           border-radius:8px;width:min(370px,74vw);overflow:hidden">
+        <div id="qr-destino" style="aspect-ratio:1;display:grid;place-items:center"></div>
+        <div class="escaner" aria-hidden="true"></div>
+      </div>
+      <p class="pie" id="qr-url" style="margin-top:14px"></p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ FUENTES Y GRACIAS ═══════ -->
+<section class="escena" id="e14" data-titulo="Fuentes y gracias">
+  <div class="lienzo">
+    <p class="num">De dónde salió cada dato</p>
+    <h2 style="margin:16px 0 22px">Fuentes</h2>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+                gap:clamp(12px,1.6vw,24px);font-size:clamp(.88rem,1.15vw,1.02rem);line-height:1.5">
+      <div class="ref"><b style="color:var(--azafran-claro)">Pew Research Center</b> — cifras de población hindú en el mundo, informe de 2025<br>
+        <span style="color:var(--tenue);font-family:var(--mono);font-size:.85em">pewresearch.org/religion/2025/06/09/hindu-population-change/</span></div>
+      <div class="ref"><b style="color:var(--azafran-claro)">Encyclopædia Britannica</b> — hinduismo, valle del Indo, Vedas, Upanishads, Mahabharata, Ramayana, Trimurti, ahimsa<br>
+        <span style="color:var(--tenue);font-family:var(--mono);font-size:.85em">britannica.com/topic/Hinduism</span></div>
+      <div class="ref"><b style="color:var(--azafran-claro)">Naciones Unidas</b> — Declaración Universal de Derechos Humanos, artículos 1, 2 y 18<br>
+        <span style="color:var(--tenue);font-family:var(--mono);font-size:.85em">un.org/es/about-us/universal-declaration-of-human-rights</span></div>
+      <div class="ref"><b style="color:var(--azafran-claro)">Constitución de India</b> — artículos 15, 17 y 25<br>
+        <span style="color:var(--tenue);font-family:var(--mono);font-size:.85em">constitutionofindia.net/articles/article-17-abolition-of-untouchability/</span></div>
+      <div class="ref"><b style="color:var(--azafran-claro)">Parlamento de India</b> — datos del NCRB «Crime in India 2023» sobre delitos contra castas registradas<br>
+        <span style="color:var(--tenue);font-family:var(--mono);font-size:.85em">sansad.in/getFile/annex/267/AU3650_3LM9tI.pdf</span></div>
+      <div class="ref"><b style="color:var(--azafran-claro)">Stanford King Institute</b> — viaje de Martin Luther King a India en 1959<br>
+        <span style="color:var(--tenue);font-family:var(--mono);font-size:.85em">kinginstitute.stanford.edu/india-trip</span></div>
+      <div class="ref"><b style="color:var(--azafran-claro)">DD News</b> (medio público de India) — asistencia al Maha Kumbh Mela de 2025<br>
+        <span style="color:var(--tenue);font-family:var(--mono);font-size:.85em">ddnews.gov.in</span></div>
+      <div class="ref"><b style="color:var(--azafran-claro)">Belur Math · USCIRF · Biblia Reina-Valera Antigua (1909)</b> — discursos de Vivekananda, leyes anti-conversión y versículos<br>
+        <span style="color:var(--tenue);font-family:var(--mono);font-size:.85em">belurmath.org · uscirf.gov · biblegateway.com</span></div>
+    </div>
+
+    <p class="ref" style="margin-top:clamp(18px,2.4vh,28px);color:var(--hueso-suave);
+       font-size:clamp(.88rem,1.15vw,1.02rem);max-width:70ch">
+      Las 22 imágenes vienen de <b style="color:var(--azafran-claro)">Wikimedia Commons</b>, todas de dominio público
+      o con licencia libre (Creative Commons y GODL-India).
+    </p>
+
+    <p class="gracias" style="font-family:var(--serif);font-size:clamp(3rem,9vw,7rem);
+       line-height:1;margin-top:clamp(24px,4vh,50px);color:var(--azafran)">Gracias.</p>
+  </div>
+</section>
+
+</main>
+
+<div id="quizapp">
+  <div class="qwrap">
+    <p class="num">Hinduismo · 11-10 · INEM José Félix de Restrepo</p>
+    <div class="qbarra"><i id="qprog" style="width:0%"></i></div>
+    <div id="qcuerpo"></div>
+  </div>
+</div>
+
+<script>
+(function(){
+"use strict";
+
+var esQuiz = location.hash.replace(/^#/,'').toLowerCase() === 'quiz';
+
+var PREGUNTAS = [
+ { q:"¿De dónde viene realmente la palabra «hindú»?",
+   ops:["Del nombre del río Sindhu (Indo): así llamaba la gente de fuera a quienes vivían al otro lado del río",
+        "Es una palabra sánscrita antigua que significa «seguidor de los Vedas»",
+        "La inventaron los británicos en el siglo XIX para hacer el censo",
+        "Viene de «Hindustán», el nombre del imperio de Ashoka en el siglo III a.C."],
+   ok:0,
+   why:"Es un nombre puesto <b>desde afuera</b>, por el río Sindhu. Por eso muchos practicantes prefieren llamar a su tradición <b>sanatana dharma</b>. No es sánscrito para «seguidor de los Vedas», y es muchísimo anterior a los británicos.",
+   fuente:"Britannica, «Hinduism» · Escena 02" },
+
+ { q:"¿Qué es exactamente <i>moksha</i>?",
+   ops:["La ley por la que cada acción produce una consecuencia",
+        "Salir para siempre del ciclo de nacer, morir y volver a nacer",
+        "Renacer en una casta más alta como premio por una buena vida",
+        "El deber que a cada persona le toca según su situación"],
+   ok:1,
+   why:"<b>Moksha</b> es salirse de la rueda, no mejorar de puesto dentro de ella. La opción 1 describe el <b>karma</b>, la 3 es un premio <i>dentro</i> del samsara (justo lo contrario de liberarse) y la 4 es el <b>dharma</b>.",
+   fuente:"Britannica, «moksha» y «Upanishad» · Escena 04" },
+
+ { q:"La Constitución de India abolió la intocabilidad. ¿En qué artículo y desde cuándo está en vigor?",
+   ops:["Artículo 15, desde el 26 de noviembre de 1949",
+        "Artículo 25, desde la independencia en 1947",
+        "Artículo 17, desde el 26 de enero de 1950",
+        "Artículo 17, desde la ley de 1989"],
+   ok:2,
+   why:"<b>Artículo 17</b>. Ahí está la trampa: la Constitución se <i>aprobó</i> el 26 de noviembre de 1949, pero entró <i>en vigor</i> el 26 de enero de 1950. El artículo 15 prohíbe discriminar en general y el 25 es el de libertad religiosa.",
+   fuente:"Constitución de India, arts. 15, 17 y 25 · Escena 07" },
+
+ { q:"Sobre el sello del valle del Indo que muestra una figura sentada, ¿qué afirmación es correcta?",
+   ops:["Demuestra que el dios Shiva ya se adoraba hacia el año 2500 a.C.",
+        "Algunos investigadores lo relacionan con formas tempranas de Shiva, pero no está demostrado",
+        "Está descartado: la inscripción del sello dice claramente que es un rey",
+        "Es una falsificación del siglo XIX, comprobada por la arqueología"],
+   ok:1,
+   why:"Es la respuesta prudente y la correcta. <b>La escritura del Indo nunca se ha descifrado</b>, así que nadie puede leer qué dice el sello: ni que es Shiva, ni que es un rey. Ante una religión que no dominamos, lo honesto es decir «se propone, se discute, no está probado».",
+   fuente:"Britannica, «Indus civilization» · Escena 03" },
+
+ { q:"¿Cuál de estos cuatro hechos ocurrió PRIMERO?",
+   ops:["El discurso de Vivekananda en Chicago",
+        "La entrada en vigor de la Constitución de India",
+        "La prohibición legal del sati en Bengala",
+        "La llegada de Gandhi a Dandi en la Marcha de la Sal"],
+   ok:2,
+   why:"El orden real es: <b>sati prohibido el 4 de diciembre de 1829</b> → Vivekananda en Chicago, 11 de septiembre de 1893 → Gandhi en Dandi, 5 de abril de 1930 → Constitución de India en vigor, 26 de enero de 1950.",
+   fuente:"Bengal Sati Regulation 1829 · Belur Math · Britannica · Escenas 08 y 09" }
+];
+
+function iniciarQuiz(){
+  document.body.classList.add('modo-quiz');
+  document.title = "Quiz · Hinduismo · 11-10";
+  var i = 0, aciertos = 0, respondida = false;
+  var cuerpo = document.getElementById('qcuerpo'), prog = document.getElementById('qprog');
+
+  function pinta(){
+    respondida = false;
+    prog.style.width = (i / PREGUNTAS.length * 100) + '%';
+    var p = PREGUNTAS[i];
+    var h = '<p class="num" style="margin-bottom:12px">Pregunta ' + (i+1) + ' de ' + PREGUNTAS.length + '</p>';
+    h += '<h1 class="qpregunta">' + p.q + '</h1><div class="qops">';
+    for (var k = 0; k < p.ops.length; k++){
+      h += '<button class="qop" data-k="' + k + '"><span class="letra">' +
+           'ABCD'.charAt(k) + '</span><span>' + p.ops[k] + '</span></button>';
+    }
+    h += '</div><div id="qfeed"></div>';
+    cuerpo.innerHTML = h;
+    var btns = cuerpo.querySelectorAll('.qop');
+    for (var b = 0; b < btns.length; b++) btns[b].addEventListener('click', elegir);
+  }
+
+  function elegir(ev){
+    if (respondida) return;
+    respondida = true;
+    var p = PREGUNTAS[i];
+    var elegida = parseInt(ev.currentTarget.getAttribute('data-k'), 10);
+    if (elegida === p.ok) aciertos++;
+    var btns = cuerpo.querySelectorAll('.qop');
+    for (var b = 0; b < btns.length; b++){
+      btns[b].disabled = true;
+      if (b === p.ok) btns[b].classList.add('bien');
+      else if (b === elegida) btns[b].classList.add('mal');
+    }
+    document.getElementById('qfeed').innerHTML =
+      '<div class="qexplica"><b>' + (elegida === p.ok ? 'Correcto.' : 'Incorrecto.') + '</b> ' +
+      p.why + '<br><br><span style="opacity:.72">Fuente: ' + p.fuente + '</span></div>' +
+      '<button class="qbtn" id="qnext">' +
+      (i === PREGUNTAS.length - 1 ? 'Ver mi puntaje' : 'Siguiente pregunta') + '</button>';
+    document.getElementById('qnext').addEventListener('click', function(){
+      i++;
+      if (i < PREGUNTAS.length) pinta(); else final();
+    });
+    window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+  }
+
+  function final(){
+    prog.style.width = '100%';
+    var msg = aciertos === 5 ? 'Perfecto. Entendiste hasta los matices.'
+            : aciertos === 4 ? 'Muy bien. Se te escapó un detalle.'
+            : aciertos === 3 ? 'Vas bien, pero los matices cuestan.'
+            : aciertos === 2 ? 'Quedó a medias.'
+            : 'Toca repasar.';
+    cuerpo.innerHTML =
+      '<p class="num">Resultado</p>' +
+      '<p class="qpuntaje">' + aciertos + '<span style="font-size:.34em;color:var(--tenue)"> / 5</span></p>' +
+      '<p class="idea" style="margin:10px 0 22px">' + msg + '</p>' +
+      '<div class="qexplica" id="qenviar"><b>Muéstrale esta pantalla al grupo que expone</b> ' +
+      'para que registre tu puntaje.</div>' +
+      '<button class="qbtn ghost" id="qotra" style="margin-top:14px">Responder otra vez</button>';
+    document.getElementById('qotra').addEventListener('click', function(){
+      i = 0; aciertos = 0; pinta();
+    });
+    var WA = "";  /* número de WhatsApp en formato internacional sin +, ej: 573001234567 */
+    if (WA){
+      var txt = encodeURIComponent('Quiz Hinduismo 11-10 - mi puntaje: ' + aciertos + '/5. Mi nombre: ');
+      document.getElementById('qenviar').innerHTML =
+        '<b>Envía tu resultado al grupo</b><br><a href="https://wa.me/' + WA + '?text=' + txt +
+        '" style="color:var(--azafran-claro)">Enviar ' + aciertos + '/5 por WhatsApp</a>';
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+  pinta();
+}
+
+if (esQuiz){ iniciarQuiz(); return; }
+
+var deck = document.getElementById('deck');
+var escenas = Array.prototype.slice.call(document.querySelectorAll('.escena'));
+var rail = document.getElementById('rail');
+var barra = document.getElementById('barra');
+var pista = document.getElementById('pista');
+var actual = 0;
+
+escenas.forEach(function(sec, k){
+  var b = document.createElement('button');
+  b.type = 'button';
+  b.setAttribute('aria-label', 'Diapositiva ' + (k+1) + ': ' + sec.getAttribute('data-titulo'));
+  b.addEventListener('click', function(){ ir(k); });
+  rail.appendChild(b);
+});
+var puntos = rail.querySelectorAll('button');
+
+function ir(k){
+  k = Math.max(0, Math.min(escenas.length - 1, k));
+  actual = k;
+  escenas[k].scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+var io = new IntersectionObserver(function(entradas){
+  entradas.forEach(function(e){
+    if (e.isIntersecting && e.intersectionRatio > 0.5){
+      e.target.classList.add('on');
+      actual = escenas.indexOf(e.target);
+      barra.style.width = ((actual + 1) / escenas.length * 100) + '%';
+      for (var d = 0; d < puntos.length; d++)
+        puntos[d].setAttribute('aria-current', d === actual ? 'true' : 'false');
+      pista.classList.toggle('oculto', actual > 0);
+    }
+  });
+}, { root: deck, threshold: [0.5] });
+escenas.forEach(function(s){ io.observe(s); });
+
+/* Red de seguridad: si el observador no dispara, se muestra todo estático
+   en vez de dejar las diapositivas en blanco. */
+setTimeout(function(){
+  if (!document.querySelector('.escena.on'))
+    escenas.forEach(function(s){ s.classList.add('on'); });
+}, 1400);
+
+document.addEventListener('keydown', function(e){
+  var k = e.key;
+  if (k === 'ArrowDown' || k === 'ArrowRight' || k === 'PageDown' || k === ' '){
+    e.preventDefault(); ir(actual + 1);
+  } else if (k === 'ArrowUp' || k === 'ArrowLeft' || k === 'PageUp'){
+    e.preventDefault(); ir(actual - 1);
+  } else if (k === 'Home'){ e.preventDefault(); ir(0); }
+  else if (k === 'End'){ e.preventDefault(); ir(escenas.length - 1); }
+});
+
+var caja = document.getElementById('qr-destino');
+var urlQuiz = location.origin + location.pathname + '#quiz';
+document.getElementById('qr-url').textContent = urlQuiz;
+if (!caja.innerHTML.trim()){
+  caja.innerHTML = '<p style="color:#0a0705;font-family:var(--mono);font-size:.72rem;' +
+    'padding:14px;line-height:1.5;overflow-wrap:anywhere">Abre esta dirección en el celular:<br><br><b>' +
+    urlQuiz + '</b></p>';
+}
+
+})();
+</script>
+</body>
+</html>
