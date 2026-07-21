@@ -334,13 +334,42 @@ ESCENAS.forEach((e, i) => {
   if (i < ESCENAS.length - 1) hijos.push(new Paragraph({ spacing: { after: 60 }, children: [] }));
 });
 
-hijos.push(H2("Pantalla final — el quiz"));
+hijos.push(new Paragraph({ children: [new PageBreak()] }));
+hijos.push(H1("El quiz y sus respuestas"));
 hijos.push(P("Después de la escena 12 viene la pantalla del quiz. Ahí solo hay que invitar al curso a sacar " +
   "el celular, escanear el código QR y responder cinco preguntas. Se abre solo en el navegador, no hay que " +
   "instalar nada ni tener cuenta de nada. Al terminar, cada uno ve su puntaje y la explicación de cada " +
   "respuesta. Las cinco preguntas salen de las escenas 02, 03, 04, 07, 08 y 09."));
-hijos.push(CLAVE("Clave:", "Las respuestas correctas son, en orden: la primera opción, la segunda, la tercera, " +
-  "la segunda y la tercera. Están difíciles a propósito: dos se ganan entendiendo un matiz, no memorizando fechas."));
+
+hijos.push(H2("Las 5 respuestas correctas"));
+const RESPUESTAS = [
+  ["1. ¿De dónde viene realmente la palabra «hindú»?",
+   "Del nombre del río Sindhu (Indo): así llamaba la gente de fuera a quienes vivían al otro lado del río."],
+  ["2. ¿Qué es exactamente moksha?",
+   "Salir para siempre del ciclo de nacer, morir y volver a nacer."],
+  ["3. ¿Qué artículo abolió la intocabilidad y desde cuándo está en vigor?",
+   "El artículo 17, en vigor desde el 26 de enero de 1950."],
+  ["4. Sobre el sello del valle del Indo con la figura sentada",
+   "Algunos investigadores lo relacionan con formas tempranas de Shiva, pero no está demostrado."],
+  ["5. ¿Cuál de los cuatro hechos ocurrió primero?",
+   "La prohibición legal del sati en Bengala, el 4 de diciembre de 1829."]
+];
+RESPUESTAS.forEach(([preg, resp]) => {
+  hijos.push(new Paragraph({
+    spacing: { before: 140, after: 40 },
+    children: [new TextRun({ text: preg, bold: true, size: 22 })]
+  }));
+  hijos.push(new Paragraph({
+    spacing: { after: 60 }, indent: { left: 240 },
+    children: [
+      new TextRun({ text: "Respuesta: ", bold: true, size: 22, color: NARANJA }),
+      new TextRun({ text: resp, size: 22 })
+    ]
+  }));
+});
+hijos.push(new Paragraph({ spacing: { before: 180 }, children: [] }));
+hijos.push(CLAVE("Clave:", "Las que más se fallan son la 4 y la 5: la 4 se gana admitiendo lo que NO está " +
+  "probado, y la 5 es de orden cronológico. Cada quien ve la explicación en su celular apenas contesta."));
 
 hijos.push(new Paragraph({ children: [new PageBreak()] }));
 hijos.push(H1("Lectura general"));

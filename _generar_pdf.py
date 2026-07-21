@@ -74,15 +74,33 @@ for e in d["ESCENAS"]:
     f.append(Paragraph(e["p"], S["p"]))
     f.append(Paragraph('<font color="#9C4A1A"><b>Clave:</b></font> ' + e["clave"], S["clave"]))
 
-f.append(Paragraph("Pantalla final — el quiz", S["h2"]))
+f.append(PageBreak())
+f.append(Paragraph("El quiz y sus respuestas", S["h1"]))
 f.append(Paragraph(
     "Después de la escena 12 viene la pantalla del quiz. Ahí solo hay que invitar al curso a sacar el celular, "
     "escanear el código QR y responder cinco preguntas. Se abre solo en el navegador: no hay que instalar nada "
     "ni tener cuenta de nada. Al terminar, cada uno ve su puntaje y la explicación de cada respuesta.", S["p"]))
+f.append(Paragraph("Las 5 respuestas correctas", S["h2"]))
+RESPUESTAS = [
+ ("1. ¿De dónde viene realmente la palabra «hindú»?",
+  "Del nombre del río Sindhu (Indo): así llamaba la gente de fuera a quienes vivían al otro lado del río."),
+ ("2. ¿Qué es exactamente moksha?",
+  "Salir para siempre del ciclo de nacer, morir y volver a nacer."),
+ ("3. ¿Qué artículo abolió la intocabilidad y desde cuándo está en vigor?",
+  "El artículo 17, en vigor desde el 26 de enero de 1950."),
+ ("4. Sobre el sello del valle del Indo con la figura sentada",
+  "Algunos investigadores lo relacionan con formas tempranas de Shiva, pero no está demostrado."),
+ ("5. ¿Cuál de los cuatro hechos ocurrió primero?",
+  "La prohibición legal del sati en Bengala, el 4 de diciembre de 1829."),
+]
+for preg, resp in RESPUESTAS:
+    f.append(Paragraph("<b>%s</b>" % preg, S["p"]))
+    f.append(Paragraph('&nbsp;&nbsp;&nbsp;<font color="#9C4A1A"><b>Respuesta:</b></font> %s' % resp, S["p"]))
+f.append(Spacer(1, 8))
 f.append(Paragraph(
-    '<font color="#9C4A1A"><b>Clave:</b></font> Las respuestas correctas son, en orden: la primera opción, la '
-    "segunda, la tercera, la segunda y la tercera. Están difíciles a propósito: dos se ganan entendiendo un "
-    "matiz, no memorizando fechas.", S["clave"]))
+    '<font color="#9C4A1A"><b>Clave:</b></font> Las que más se fallan son la 4 y la 5: la 4 se gana '
+    "admitiendo lo que NO está probado, y la 5 es de orden cronológico. Cada quien ve la explicación "
+    "en su celular apenas contesta.", S["clave"]))
 
 f.append(PageBreak())
 f.append(Paragraph("Lectura general", S["h1"]))

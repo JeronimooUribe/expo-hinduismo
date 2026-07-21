@@ -55,19 +55,21 @@ body{
 /* ---------- estructura ---------- */
 #deck{
   height:100dvh;overflow-y:auto;overflow-x:hidden;
-  scroll-snap-type:y mandatory;scroll-behavior:smooth;scrollbar-width:none;
+  scroll-snap-type:y proximity;scroll-behavior:smooth;scrollbar-width:none;
 }
 #deck::-webkit-scrollbar{display:none}
 
+/* Las escenas NUNCA recortan su contenido. Si una es más alta que la pantalla
+   (celulares, proyectores de 768px), se puede seguir bajando dentro de ella:
+   antes se perdía el texto de abajo. */
 .escena{
   position:relative;min-height:100dvh;
-  scroll-snap-align:start;scroll-snap-stop:always;
+  scroll-snap-align:start;scroll-snap-stop:normal;
   display:grid;align-content:center;
-  padding:clamp(48px,6vh,80px) var(--gap) clamp(78px,10vh,112px);
-  overflow:hidden;isolation:isolate;
-  content-visibility:auto;contain-intrinsic-size:100dvh;
+  padding:clamp(40px,5vh,72px) var(--gap) clamp(70px,8vh,100px);
+  overflow:visible;isolation:isolate;
 }
-.escena.on{content-visibility:visible}
+/* el fondo sí se recorta a su propia caja, para que el zoom lento no se desborde */
 .lienzo{width:min(1360px,100%);margin-inline:auto;position:relative;z-index:2}
 
 /* ---------- tipografía: TODO más grande que antes ---------- */
@@ -77,28 +79,28 @@ body{
 }
 h1{
   font-family:var(--serif);font-weight:400;
-  font-size:clamp(3rem,8.4vw,7.4rem);line-height:.95;letter-spacing:-.025em;
+  font-size:clamp(2.5rem,6.3vmin,5.1rem);line-height:.96;letter-spacing:-.025em;
 }
 h2{
   font-family:var(--serif);font-weight:400;
-  font-size:clamp(2.3rem,5.6vw,4.6rem);line-height:1.02;letter-spacing:-.022em;
+  font-size:clamp(1.75rem,4.4vmin,3.5rem);line-height:1.04;letter-spacing:-.022em;
   text-wrap:balance;
 }
 /* la frase que resume la diapositiva: es lo que el público lee primero */
 .idea{
-  font-size:clamp(1.25rem,2.35vw,2.05rem);
-  line-height:1.32;color:var(--hueso);max-width:34ch;text-wrap:balance;
+  font-size:clamp(1.02rem,2.05vmin,1.52rem);
+  line-height:1.34;color:var(--hueso);max-width:34ch;text-wrap:balance;
 }
 .idea b{color:var(--azafran-claro);font-weight:400}
 
 /* bloque de punto: una etiqueta grande + una frase corta */
 .punto{display:grid;gap:5px}
 .punto .marca{
-  font-family:var(--mono);font-size:clamp(.82rem,1.15vw,1.02rem);
+  font-family:var(--mono);font-size:clamp(.74rem,1.15vmin,.94rem);
   letter-spacing:.14em;text-transform:uppercase;color:var(--azafran);
 }
 .punto p, .punto .txt{
-  font-size:clamp(1.02rem,1.55vw,1.42rem);line-height:1.42;
+  font-size:clamp(.93rem,1.62vmin,1.2rem);line-height:1.4;
   color:var(--hueso);max-width:40ch;
 }
 .punto .txt b, .punto p b{color:var(--azafran-claro);font-weight:600}
@@ -149,7 +151,13 @@ em{color:var(--azafran-claro);font-style:italic}
 #pista.oculto{opacity:0;pointer-events:none}
 
 /* ---------- visuales ---------- */
-.fondo{position:absolute;inset:0;z-index:0;background-size:cover;background-position:center}
+/* El fondo va dentro de una caja que recorta. Antes el zoom lento se desbordaba
+   y agrandaba la escena entera, empujando el contenido fuera de la pantalla. */
+.fondo{position:absolute;inset:0;z-index:0;overflow:hidden}
+.fondo::before{
+  content:"";position:absolute;inset:0;
+  background-image:inherit;background-size:cover;background-position:center;
+}
 .velo{position:absolute;inset:0;z-index:1}
 .velo-izq{background:linear-gradient(100deg,var(--tinta) 30%,rgba(10,7,5,.88) 55%,rgba(10,7,5,.36) 100%)}
 .velo-centro{background:radial-gradient(ellipse 92% 78% at 50% 46%,rgba(10,7,5,.55) 0%,rgba(10,7,5,.94) 74%)}
@@ -161,10 +169,10 @@ em{color:var(--azafran-claro);font-style:italic}
 .marco:hover img{transform:scale(1.04)}
 
 .cifra{
-  font-family:var(--serif);font-size:clamp(2.8rem,6vw,5rem);
+  font-family:var(--serif);font-size:clamp(1.9rem,4.6vmin,3.4rem);
   line-height:1;color:var(--azafran-claro);font-variant-numeric:tabular-nums;
 }
-.rotulo{font-size:clamp(.92rem,1.25vw,1.12rem);color:var(--hueso-suave);max-width:22ch;margin-top:4px}
+.rotulo{font-size:clamp(.82rem,1.3vmin,1.02rem);color:var(--hueso-suave);max-width:22ch;margin-top:4px}
 
 .tarjeta{
   border:1px solid var(--linea);border-radius:5px;
@@ -174,15 +182,15 @@ em{color:var(--azafran-claro);font-style:italic}
 
 .ojo{
   border-left:3px solid var(--bermellon);padding:10px 0 10px 16px;
-  font-size:clamp(.95rem,1.35vw,1.2rem);line-height:1.42;color:var(--hueso-suave);max-width:46ch;
+  font-size:clamp(.86rem,1.42vmin,1.06rem);line-height:1.4;color:var(--hueso-suave);max-width:46ch;
 }
 .ojo b{color:var(--bermellon);font-weight:650}
 
 /* ============================================================
    ANIMACIONES — una distinta por escena
    ============================================================ */
-#e1 .fondo{transform:scale(1.16);transition:transform 14s linear}
-#e1.on .fondo{transform:scale(1)}
+#e1 .fondo::before{transform:scale(1.16);transition:transform 14s linear}
+#e1.on .fondo::before{transform:scale(1)}
 #e1 .cortina{position:absolute;inset:0;z-index:3;background:var(--tinta);transform-origin:top;transform:scaleY(1)}
 #e1.on .cortina{transition:transform 1.15s var(--sal);transform:scaleY(0)}
 #e1 .titulo>span{display:block;overflow:hidden}
@@ -354,12 +362,41 @@ em{color:var(--azafran-claro);font-style:italic}
 .fila-h{display:flex;gap:clamp(16px,2.2vw,32px);align-items:center;flex-wrap:wrap}
 
 @media (max-width:900px){
-  .grid-2{grid-template-columns:1fr;gap:24px}
+  .grid-2{grid-template-columns:1fr;gap:22px}
   .grid-3{grid-template-columns:1fr;gap:16px}
-  .escena{padding-bottom:130px}
+  .escena{padding-bottom:120px}
   #rail{display:none}
-  .fuente{position:static;margin-top:26px}
+  .fuente{position:static;margin-top:24px}
   .idea,.punto p,.punto .txt,.ojo{max-width:none}
+  /* en celular el mosaico va de a dos, no apilado: ahorra media pantalla */
+  .mosaico{grid-template-columns:1fr 1fr!important;gap:12px!important}
+  .mosaico .punto .txt{font-size:.92rem}
+}
+
+/* Proyectores y portátiles de pantalla baja (768px o 720px de alto):
+   aquí es donde antes se cortaba el contenido. Todo se compacta. */
+@media (max-height:1000px) and (min-width:901px){
+  .escena{padding:26px var(--gap) 62px}
+  h2{font-size:clamp(1.7rem,3.4vw,2.5rem)}
+  .idea{font-size:clamp(1.02rem,1.5vw,1.28rem);line-height:1.28}
+  .punto p,.punto .txt{font-size:clamp(.92rem,1.12vw,1.06rem);line-height:1.34}
+  .punto .marca{font-size:clamp(.72rem,.9vw,.84rem)}
+  .cifra{font-size:clamp(2rem,3.6vw,2.9rem)}
+  .rotulo{font-size:clamp(.8rem,1vw,.92rem)}
+  .tarjeta{padding:11px 14px}
+  .pila{gap:9px}
+  .ojo{font-size:clamp(.85rem,1.05vw,.98rem);padding:6px 0 6px 13px}
+  .pie{font-size:.66rem;margin-top:5px}
+  .fuente{bottom:16px;padding-top:7px}
+  .num{font-size:.72rem}
+}
+@media (max-height:760px) and (min-width:901px){
+  .escena{padding:18px var(--gap) 56px}
+  h2{font-size:clamp(1.5rem,3vw,2.1rem)}
+  .idea{font-size:clamp(.96rem,1.32vw,1.14rem)}
+  .punto p,.punto .txt{font-size:clamp(.88rem,1.02vw,.99rem);line-height:1.32}
+  .pila{gap:7px}
+  .tarjeta{padding:9px 12px}
 }
 
 /* ---------- QUIZ ---------- */
@@ -414,7 +451,7 @@ body.modo-quiz #quizapp{display:block}
   #e10 .barra i{width:var(--w)}
   #e12 .luz{opacity:1;transform:none}
   #e13 .escaner{display:none}
-  #e1 .fondo{transform:scale(1)}
+  #e1 .fondo::before{transform:scale(1)}
 }
 </style>
 </head>
@@ -437,12 +474,12 @@ body.modo-quiz #quizapp{display:block}
       <span><i>Hinduismo</i></span>
       <span><i style="color:var(--azafran-claro);font-size:.42em;padding-top:.36em">4.000 años en 12 escenas</i></span>
     </h1>
-    <p class="idea" style="margin-top:26px;max-width:44ch">
+    <p class="idea" style="margin-top:18px;max-width:44ch">
       La religión viva más antigua del mundo, contada en orden:
       desde el año 2600 antes de Cristo hasta lo que pasó el año pasado.
     </p>
-    <ul style="list-style:none;margin-top:clamp(28px,4.4vh,48px);display:grid;
-               grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px 30px;max-width:860px">
+    <ul style="list-style:none;margin-top:clamp(20px,3vh,34px);display:grid;
+               grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:7px 30px;max-width:860px">
       <li class="nombre" style="font-size:clamp(1rem,1.4vw,1.24rem)">Santiago Bolívar</li>
       <li class="nombre" style="font-size:clamp(1rem,1.4vw,1.24rem)">Samuel Villa</li>
       <li class="nombre" style="font-size:clamp(1rem,1.4vw,1.24rem)">Jerónimo Uribe</li>
@@ -569,17 +606,17 @@ body.modo-quiz #quizapp{display:block}
     </p>
     <div class="libro grid-2" style="align-items:start">
       <div class="hoja hoja-i">
-        <div class="marco" style="aspect-ratio:16/11"><img src="img/gita.jpg" alt="Pintura india de Krishna guiando el carro de guerra de Arjuna" loading="lazy" decoding="async"></div>
+        <div class="marco" style="aspect-ratio:16/9;max-height:34vh"><img src="img/gita.jpg" alt="Pintura india de Krishna guiando el carro de guerra de Arjuna" loading="lazy" decoding="async"></div>
         <div class="punto" style="margin-top:14px"><span class="marca">Mahabharata</span>
           <p class="txt">Un guerrero, <b>Arjuna</b>, se paraliza antes de la batalla: al frente están sus propios primos. El dios <b>Krishna</b> le responde. Esa conversación es la <em>Bhagavad Gita</em>, el texto hindú más leído del mundo.</p></div>
       </div>
       <div class="hoja hoja-d">
-        <div class="marco" style="aspect-ratio:16/11"><img src="img/ramayana.jpg" alt="Miniatura india de la batalla de Lanka del Ramayana" loading="lazy" decoding="async"></div>
+        <div class="marco" style="aspect-ratio:16/9;max-height:34vh"><img src="img/ramayana.jpg" alt="Miniatura india de la batalla de Lanka del Ramayana" loading="lazy" decoding="async"></div>
         <div class="punto" style="margin-top:14px"><span class="marca">Ramayana</span>
           <p class="txt">Al príncipe <b>Rama</b> lo destierran, le secuestran a su esposa <b>Sita</b> y él la rescata. Se cuenta como ejemplo de lealtad y de cumplir la palabra. Es la historia que se celebra cada año en la fiesta de Diwali.</p></div>
       </div>
     </div>
-    <p class="cita" style="margin-top:clamp(16px,2.2vh,26px);font-size:clamp(.95rem,1.3vw,1.15rem);color:var(--hueso-suave)">
+    <p class="cita" style="margin-top:clamp(10px,1.5vh,18px);font-size:clamp(.9rem,1.2vw,1.05rem);color:var(--hueso-suave)">
       Para dimensionarlo: el Mahabharata tiene unos 100.000 versos. Es <strong>diez veces</strong> la Ilíada y la Odisea juntas.
     </p>
   </div>
@@ -834,29 +871,29 @@ body.modo-quiz #quizapp{display:block}
       <b>Esta última parte es distinta: es nuestra convicción</b>, y estas son las razones.
     </p>
 
-    <div class="pila" style="gap:clamp(13px,1.9vh,22px)">
+    <div class="pila" style="gap:clamp(9px,1.4vh,16px)">
       <div class="verso">
-        <p style="font-family:var(--serif);font-size:clamp(1.1rem,2vw,1.55rem);line-height:1.3">
+        <p style="font-family:var(--serif);font-size:clamp(1.02rem,1.8vw,1.38rem);line-height:1.28">
           «Yo soy el camino, y la verdad, y la vida: nadie viene al Padre, sino por mí.»</p>
         <p class="pie"><strong>Juan 14:6</strong> — Jesús no dice que <em>enseña</em> un camino: dice que Él <em>es</em> el camino.</p>
       </div>
       <div class="verso">
-        <p style="font-family:var(--serif);font-size:clamp(1.1rem,2vw,1.55rem);line-height:1.3">
+        <p style="font-family:var(--serif);font-size:clamp(1.02rem,1.8vw,1.38rem);line-height:1.28">
           «Porque hay un Dios, asimismo un mediador entre Dios y los hombres, Jesucristo hombre.»</p>
         <p class="pie"><strong>1 Timoteo 2:5</strong> — Un solo intermediario entre el ser humano y Dios.</p>
       </div>
       <div class="verso">
-        <p style="font-family:var(--serif);font-size:clamp(1.1rem,2vw,1.55rem);line-height:1.3">
+        <p style="font-family:var(--serif);font-size:clamp(1.02rem,1.8vw,1.38rem);line-height:1.28">
           «Y en ningún otro hay salud; porque no hay otro nombre debajo del cielo, dado á los hombres, en que podamos ser salvos.»</p>
         <p class="pie"><strong>Hechos 4:12</strong> — «Salud» aquí quiere decir salvación.</p>
       </div>
       <div class="verso">
-        <p style="font-family:var(--serif);font-size:clamp(1.1rem,2vw,1.55rem);line-height:1.3">
+        <p style="font-family:var(--serif);font-size:clamp(1.02rem,1.8vw,1.38rem);line-height:1.28">
           «Porque por gracia sois salvos por la fe; y esto no de vosotros, pues es don de Dios: no por obras, para que nadie se gloríe.»</p>
         <p class="pie"><strong>Efesios 2:8-9</strong> — La diferencia con el karma: no se acumula con obras, se recibe como regalo.</p>
       </div>
       <div class="verso">
-        <p style="font-family:var(--serif);font-size:clamp(1.1rem,2vw,1.55rem);line-height:1.3">
+        <p style="font-family:var(--serif);font-size:clamp(1.02rem,1.8vw,1.38rem);line-height:1.28">
           «Y de la manera que está establecido á los hombres que mueran una vez, y después el juicio.»</p>
         <p class="pie"><strong>Hebreos 9:27</strong> — Una sola vida, no una rueda de renacimientos.</p>
       </div>
@@ -1096,18 +1133,28 @@ function ir(k){
   escenas[k].scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
+/* Se activa en cuanto la escena asoma. NO se usa un umbral de porcentaje:
+   una escena más alta que el doble de la pantalla nunca llegaría al 50% y
+   se quedaría invisible para siempre. */
+function marcarActual(){
+  var centro = deck.clientHeight / 2, mejor = actual;
+  for (var i = 0; i < escenas.length; i++){
+    var r = escenas[i].getBoundingClientRect();
+    if (r.top <= centro && r.bottom >= centro){ mejor = i; break; }
+  }
+  if (mejor !== actual) actual = mejor;
+  barra.style.width = ((actual + 1) / escenas.length * 100) + '%';
+  for (var d = 0; d < puntos.length; d++)
+    puntos[d].setAttribute('aria-current', d === actual ? 'true' : 'false');
+  pista.classList.toggle('oculto', actual > 0);
+}
+
 var io = new IntersectionObserver(function(entradas){
   entradas.forEach(function(e){
-    if (e.isIntersecting && e.intersectionRatio > 0.5){
-      e.target.classList.add('on');
-      actual = escenas.indexOf(e.target);
-      barra.style.width = ((actual + 1) / escenas.length * 100) + '%';
-      for (var d = 0; d < puntos.length; d++)
-        puntos[d].setAttribute('aria-current', d === actual ? 'true' : 'false');
-      pista.classList.toggle('oculto', actual > 0);
-    }
+    if (e.isIntersecting) e.target.classList.add('on');
   });
-}, { root: deck, threshold: [0.5] });
+  marcarActual();
+}, { root: deck, threshold: [0, 0.01, 0.3] });
 escenas.forEach(function(s){ io.observe(s); });
 
 /* Red de seguridad: si el observador no dispara, se muestra todo estático
@@ -1117,12 +1164,29 @@ setTimeout(function(){
     escenas.forEach(function(s){ s.classList.add('on'); });
 }, 1400);
 
+/* Avanzar. Si la escena actual es más alta que la pantalla, primero se baja
+   DENTRO de ella; solo cuando ya se vio completa se pasa a la siguiente.
+   Así nunca se salta contenido en proyectores bajos ni en celular. */
+var MARGEN = 24;
+function avanzar(){
+  var s = escenas[actual], r = s.getBoundingClientRect();
+  if (r.bottom > deck.clientHeight + MARGEN){
+    deck.scrollBy({ top: Math.round(deck.clientHeight * 0.82), behavior: 'smooth' });
+  } else ir(actual + 1);
+}
+function retroceder(){
+  var s = escenas[actual], r = s.getBoundingClientRect();
+  if (r.top < -MARGEN){
+    deck.scrollBy({ top: -Math.round(deck.clientHeight * 0.82), behavior: 'smooth' });
+  } else ir(actual - 1);
+}
+
 document.addEventListener('keydown', function(e){
   var k = e.key;
   if (k === 'ArrowDown' || k === 'ArrowRight' || k === 'PageDown' || k === ' '){
-    e.preventDefault(); ir(actual + 1);
+    e.preventDefault(); avanzar();
   } else if (k === 'ArrowUp' || k === 'ArrowLeft' || k === 'PageUp'){
-    e.preventDefault(); ir(actual - 1);
+    e.preventDefault(); retroceder();
   } else if (k === 'Home'){ e.preventDefault(); ir(0); }
   else if (k === 'End'){ e.preventDefault(); ir(escenas.length - 1); }
 });
