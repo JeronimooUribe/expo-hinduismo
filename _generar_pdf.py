@@ -51,7 +51,7 @@ f = []
 f.append(Paragraph("GUÍA PARA EXPONER", S["rotulo"]))
 f.append(Paragraph("Hinduismo", S["titulo"]))
 f.append(Paragraph("I.E. INEM José Félix de Restrepo &nbsp;·&nbsp; Grado 11-10 &nbsp;·&nbsp; 21 de julio de 2026", S["sub"]))
-f.append(Paragraph("Santiago Bolívar · Samuel Villa · Jerónimo Uribe · Dulce María Gómez · Paulina Gómez · Isabel Madrigal", S["sub"]))
+f.append(Paragraph("Santiago Bolívar · Juan José Villa · Jerónimo Uribe · Dulce María Gómez · Paulina Gómez · Isabel Madrigal", S["sub"]))
 f.append(Spacer(1, 7))
 f.append(HRFlowable(width="100%", thickness=1.1, color=NARANJA, spaceAfter=15))
 
@@ -77,7 +77,7 @@ for e in d["ESCENAS"]:
 f.append(PageBreak())
 f.append(Paragraph("El quiz y sus respuestas", S["h1"]))
 f.append(Paragraph(
-    "Después de la escena 12 viene la pantalla del quiz. Ahí solo hay que invitar al curso a sacar el celular, "
+    "Después de la escena 11 viene la pantalla del quiz. Ahí solo hay que invitar al curso a sacar el celular, "
     "escanear el código QR y responder cinco preguntas. Se abre solo en el navegador: no hay que instalar nada "
     "ni tener cuenta de nada. Al terminar, cada uno ve su puntaje y la explicación de cada respuesta.", S["p"]))
 f.append(Paragraph("Las 5 respuestas correctas", S["h2"]))
@@ -124,9 +124,13 @@ f.append(ListFlowable(items, bulletType="bullet", bulletFontSize=7,
 f.append(Spacer(1, 18))
 f.append(Paragraph("La presentación", S["h2"]))
 URL = "https://jeronimoouribe.github.io/expo-hinduismo/"
+RES = "https://jeronimoouribe.github.io/expo-hinduismo/resultados.html"
 f.append(Paragraph(
     'Se abre desde cualquier celular o computador, sin instalar nada:<br/>'
     '<font color="#1F3864"><b><a href="%s">jeronimoouribe.github.io/expo-hinduismo</a></b></font>' % URL, S["p"]))
+f.append(Paragraph(
+    'Resultados del quiz, para ver quién respondió y cuánto sacó:<br/>'
+    '<font color="#1F3864"><b><a href="%s">jeronimoouribe.github.io/expo-hinduismo/resultados.html</a></b></font>' % RES, S["p"]))
 f.append(Paragraph("Gracias.", S["gracias"]))
 
 doc = SimpleDocTemplate(

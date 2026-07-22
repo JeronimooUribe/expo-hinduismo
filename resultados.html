@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Resultados del quiz · Hinduismo 11-10</title>
+<style>
+:root{
+  --tinta:#0a0705; --hueso:#f6efe6; --hueso-suave:#d6cabb; --tenue:#9c8f7f;
+  --azafran:#f0a247; --azafran-claro:#fbcb85; --bermellon:#e05540; --verde:#6fa583;
+  --linea:rgba(246,239,230,.16);
+  --serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+  --sans:"Segoe UI Variable Display","Segoe UI",ui-sans-serif,system-ui,sans-serif;
+  --mono:"Cascadia Mono",Consolas,ui-monospace,monospace;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{
+  background:var(--tinta);color:var(--hueso);font-family:var(--sans);
+  line-height:1.5;padding:24px 18px 44px;-webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:720px;margin-inline:auto}
+.num{font-family:var(--mono);font-size:.72rem;letter-spacing:.26em;
+     text-transform:uppercase;color:var(--azafran)}
+h1{font-family:var(--serif);font-weight:400;font-size:clamp(1.9rem,7vw,2.7rem);
+   line-height:1.05;margin:10px 0 6px}
+.sub{color:var(--hueso-suave);font-size:.98rem}
+
+.resumen{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:10px;
+  margin:22px 0 18px;
+}
+.caja{
+  border:1px solid var(--linea);border-radius:7px;padding:13px 14px;
+  background:linear-gradient(158deg,rgba(246,239,230,.055),rgba(246,239,230,.014));
+}
+.caja b{display:block;font-family:var(--serif);font-size:clamp(1.6rem,7vw,2.2rem);
+        line-height:1;color:var(--azafran-claro);font-variant-numeric:tabular-nums}
+.caja span{display:block;font-size:.78rem;color:var(--hueso-suave);margin-top:5px}
+
+.barra-estado{
+  display:flex;align-items:center;gap:9px;font-size:.84rem;color:var(--tenue);
+  font-family:var(--mono);margin-bottom:14px;
+}
+.punto-vivo{width:8px;height:8px;border-radius:50%;background:var(--verde);flex:0 0 auto}
+@media (prefers-reduced-motion:no-preference){
+  .punto-vivo{animation:latir 2.4s ease-in-out infinite}
+}
+@keyframes latir{0%,100%{opacity:.35}50%{opacity:1}}
+
+ol{list-style:none;display:flex;flex-direction:column;gap:8px}
+li{
+  display:flex;align-items:center;gap:13px;
+  border:1px solid var(--linea);border-radius:7px;padding:13px 15px;
+  background:rgba(246,239,230,.03);
+}
+li .pos{font-family:var(--mono);font-size:.8rem;color:var(--tenue);
+        min-width:26px;text-align:right}
+li .quien{flex:1;font-size:1.02rem;overflow-wrap:anywhere}
+li .hora{font-family:var(--mono);font-size:.72rem;color:var(--tenue)}
+li .nota{
+  font-family:var(--serif);font-size:1.5rem;line-height:1;
+  min-width:62px;text-align:right;font-variant-numeric:tabular-nums;
+}
+li.alto .nota{color:var(--verde)}
+li.medio .nota{color:var(--azafran-claro)}
+li.bajo .nota{color:var(--bermellon)}
+
+.vacio{
+  border:1px dashed var(--linea);border-radius:8px;padding:30px 20px;
+  text-align:center;color:var(--hueso-suave);
+}
+.pie{margin-top:26px;font-size:.82rem;color:var(--tenue);line-height:1.6}
+.pie a{color:var(--azafran-claro)}
+button{
+  margin-top:16px;width:100%;min-height:50px;border:1px solid var(--linea);
+  border-radius:7px;background:transparent;color:var(--hueso);
+  font:inherit;font-size:.98rem;cursor:pointer;
+}
+button:hover{border-color:rgba(240,162,71,.55)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p class="num">Hinduismo · 11-10 · INEM José Félix de Restrepo</p>
+  <h1>Resultados del quiz</h1>
+  <p class="sub">Quién respondió y cuánto sacó. Se actualiza solo.</p>
+
+  <div class="resumen">
+    <div class="caja"><b id="total">0</b><span>respondieron</span></div>
+    <div class="caja"><b id="promedio">—</b><span>promedio</span></div>
+    <div class="caja"><b id="perfectos">0</b><span>sacaron 5/5</span></div>
+  </div>
+
+  <div class="barra-estado"><span class="punto-vivo"></span><span id="estado">Buscando resultados…</span></div>
+
+  <ol id="lista"></ol>
+  <button id="recargar">Actualizar ahora</button>
+
+  <p class="pie">
+    Los resultados se guardan <b>12 horas</b>, así que revísalos el mismo día de la exposición.<br>
+    Presentación: <a href="./">jeronimoouribe.github.io/expo-hinduismo</a>
+  </p>
+</div>
+
+<script>
+(function(){
+"use strict";
+
+var BUZON = "expo-hinduismo-1110-490c6b84d9de";
+var URL = "https://ntfy.sh/" + BUZON + "/json?poll=1&since=24h";
+
+var lista = document.getElementById('lista');
+var estado = document.getElementById('estado');
+
+function hora(seg){
+  var d = new Date(seg * 1000);
+  var h = d.getHours(), m = d.getMinutes();
+  return (h < 10 ? '0' : '') + h + ':' + (m < 10 ? '0' : '') + m;
+}
+
+function pintar(filas){
+  document.getElementById('total').textContent = filas.length;
+  document.getElementById('perfectos').textContent =
+    filas.filter(function(f){ return f.nota === 5; }).length;
+  document.getElementById('promedio').textContent = filas.length
+    ? (filas.reduce(function(a, f){ return a + f.nota; }, 0) / filas.length).toFixed(1)
+    : '—';
+
+  if (!filas.length){
+    lista.innerHTML = '<div class="vacio">Todavía nadie ha respondido.<br>' +
+      'Apenas alguien termine el quiz, aparece aquí solo.</div>';
+    return;
+  }
+
+  /* de mayor a menor puntaje; a igual puntaje, el que respondió primero */
+  filas.sort(function(a, b){ return b.nota - a.nota || a.t - b.t; });
+
+  lista.innerHTML = filas.map(function(f, i){
+    var clase = f.nota >= 4 ? 'alto' : (f.nota >= 3 ? 'medio' : 'bajo');
+    return '<li class="' + clase + '">' +
+             '<span class="pos">' + (i + 1) + '</span>' +
+             '<span class="quien">' + f.nombre +
+               '<br><span class="hora">' + hora(f.t) + '</span></span>' +
+             '<span class="nota">' + f.nota + '<span style="font-size:.55em;color:var(--tenue)">/5</span></span>' +
+           '</li>';
+  }).join('');
+}
+
+function limpiar(txt){
+  var div = document.createElement('div');
+  div.textContent = txt;
+  return div.innerHTML;
+}
+
+function cargar(){
+  fetch(URL, { cache: 'no-store' })
+    .then(function(r){
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      return r.text();
+    })
+    .then(function(txt){
+      var vistos = {}, filas = [];
+      txt.split('\n').forEach(function(linea){
+        if (!linea.trim()) return;
+        var m;
+        try { m = JSON.parse(linea); } catch (e) { return; }
+        if (m.event !== 'message' || !m.message) return;
+        var p = m.message.split('|');
+        if (p.length < 2) return;
+        var nombre = p[0].trim();
+        var nota = parseInt(p[1], 10);
+        if (!nombre || isNaN(nota)) return;
+        /* si alguien responde dos veces, se queda su mejor intento */
+        var clave = nombre.toLowerCase();
+        if (vistos[clave] !== undefined){
+          var y = filas[vistos[clave]];
+          if (nota > y.nota){ y.nota = nota; y.t = m.time; }
+          return;
+        }
+        vistos[clave] = filas.length;
+        filas.push({ nombre: limpiar(nombre), nota: nota, t: m.time });
+      });
+      pintar(filas);
+      estado.textContent = filas.length
+        ? filas.length + (filas.length === 1 ? ' respuesta recibida' : ' respuestas recibidas')
+        : 'Conectado, esperando respuestas';
+    })
+    .catch(function(e){
+      estado.textContent = 'Sin conexión con el buzón (' + e.message + ')';
+    });
+}
+
+cargar();
+setInterval(cargar, 8000);
+document.getElementById('recargar').addEventListener('click', cargar);
+
+})();
+</script>
+</body>
+</html>

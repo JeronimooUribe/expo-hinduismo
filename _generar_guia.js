@@ -185,22 +185,8 @@ const ESCENAS = [
        "hinduismo convertida en una fecha del calendario mundial.",
     clave: "Sobre los 660 millones: es la cifra oficial del gobierno indio y algunos periodistas la han " +
            "cuestionado. Decirlo da credibilidad."
-  },
-  {
-    n: "12", t: "Lo que creemos nosotros",
-    p: "Aquí se marca un cambio explícito de tono, y hay que decirlo en voz alta: «hasta aquí fue la " +
-       "exposición; esto que sigue es lo que creemos nosotros». Se presentan cinco versículos, cada uno " +
-       "con una razón corta. Juan 14:6, donde Jesús no dice que enseña un camino sino que Él es el camino. " +
-       "1 Timoteo 2:5, que habla de un solo mediador entre Dios y los hombres. Hechos 4:12, que dice que no " +
-       "hay otro nombre por el cual podamos ser salvos. Efesios 2:8-9, que marca la diferencia de fondo con " +
-       "el karma: la salvación no se acumula con obras, se recibe como un regalo. Y Hebreos 9:27, que dice " +
-       "que está establecido que los hombres mueran una sola vez y después venga el juicio, lo cual " +
-       "contrasta directamente con el samsara de la escena 04. Se cierra diciendo que discutimos ideas, " +
-       "nunca personas.",
-    clave: "El contraste más potente es el de Efesios y Hebreos contra karma y samsara, porque conecta " +
-           "directamente con la escena 04. Si conectas eso, la exposición cierra redonda."
-  }
-];
+  }]
+;
 
 /* ============================================================
    LECTURA GENERAL (para que los 6 tengan la misma base)
@@ -308,7 +294,7 @@ hijos.push(new Paragraph({
   spacing: { after: 300 },
   border: { bottom: { style: BorderStyle.SINGLE, size: 8, color: NARANJA, space: 8 } },
   children: [new TextRun({
-    text: "Santiago Bolívar · Samuel Villa · Jerónimo Uribe · Dulce María Gómez · Paulina Gómez · Isabel Madrigal",
+    text: "Santiago Bolívar · Juan José Villa · Jerónimo Uribe · Dulce María Gómez · Paulina Gómez · Isabel Madrigal",
     size: 21, color: GRIS })]
 }));
 
@@ -336,7 +322,7 @@ ESCENAS.forEach((e, i) => {
 
 hijos.push(new Paragraph({ children: [new PageBreak()] }));
 hijos.push(H1("El quiz y sus respuestas"));
-hijos.push(P("Después de la escena 12 viene la pantalla del quiz. Ahí solo hay que invitar al curso a sacar " +
+hijos.push(P("Después de la escena 11 viene la pantalla del quiz. Ahí solo hay que invitar al curso a sacar " +
   "el celular, escanear el código QR y responder cinco preguntas. Se abre solo en el navegador, no hay que " +
   "instalar nada ni tener cuenta de nada. Al terminar, cada uno ve su puntaje y la explicación de cada " +
   "respuesta. Las cinco preguntas salen de las escenas 02, 03, 04, 07, 08 y 09."));
@@ -387,6 +373,16 @@ hijos.push(new Paragraph({ spacing: { before: 320, after: 100 }, children: [] })
 hijos.push(new Paragraph({
   spacing: { after: 100 },
   children: [new TextRun({ text: "La presentación", bold: true, size: 24, color: AZUL })]
+}));
+hijos.push(new Paragraph({
+  spacing: { after: 140 },
+  children: [
+    new TextRun({ text: "Resultados del quiz (quién respondió y cuánto sacó):  ", size: 22 }),
+    new ExternalHyperlink({
+      children: [new TextRun({ text: "jeronimoouribe.github.io/expo-hinduismo/resultados.html", style: "Hyperlink", size: 22, bold: true })],
+      link: "https://jeronimoouribe.github.io/expo-hinduismo/resultados.html"
+    })
+  ]
 }));
 hijos.push(new Paragraph({
   spacing: { after: 300 },
